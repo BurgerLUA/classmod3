@@ -128,6 +128,38 @@ CMWeapons["weapon_cs_xm1014"] = {
 	Slot = 3,
 }
 
+-- Burger
+	
+CMWeapons["weapon_bur_pee"] = { 
+	Weight = 1,
+	Slot = 0,
+	}	
+	
+CMWeapons["weapon_bur_c4"] = { 
+	Weight = 3,
+	Slot = 0,
+}	
+
+CMWeapons["weapon_bur_gl"] = { 
+	Weight = 4,
+	Slot = 0,
+}
+
+CMWeapons["weapon_bur_tesla"] = { 
+	Weight = 3,
+	Slot = 0,
+}
+
+CMWeapons["weapon_bur_naughty"] = { 
+	Weight = 5,
+	Slot = 0,
+}
+
+CMWeapons["weapon_bur_medkit"] = { 
+	Weight = 1,
+	Slot = 0,
+}
+
 -- HL2
 
 CMWeapons["weapon_cs_357"] = { 
@@ -162,7 +194,7 @@ CMWeapons["weapon_cs_pistolx2"] = {
 	
 CMWeapons["weapon_cs_rpg"] = { 
 	Weight = 10,
-	Slot = 5,
+	Slot = 4,
 	}
 	
 CMWeapons["weapon_cs_smg"] = { 
@@ -174,40 +206,13 @@ CMWeapons["weapon_cs_spas"] = {
 	Weight = 6,
 	Slot = 3,
 	}	
-	
--- Burger
-	
-CMWeapons["weapon_bur_pee"] = { 
-	Weight = 1,
-	Slot = 0,
-	}	
-	
-CMWeapons["weapon_bur_c4"] = { 
-	Weight = 3,
-	Slot = 0,
-}	
-
-CMWeapons["weapon_bur_gl"] = { 
-	Weight = 4,
-	Slot = 0,
-}
-
-CMWeapons["weapon_bur_tesla"] = { 
-	Weight = 3,
-	Slot = 0,
-}
-
-CMWeapons["weapon_bur_naughty"] = { 
-	Weight = 5,
-	Slot = 0,
-}
-
-CMWeapons["weapon_bur_medkit"] = { 
-	Weight = 1,
-	Slot = 0,
-}
 
 -- Extras
+
+CMWeapons["weapon_ex_anna"] = { 
+	Weight = 6,
+	Slot = 4,
+}
 
 CMWeapons["weapon_ex_combinesniper"] = { 
 	Weight = 9,
@@ -219,13 +224,13 @@ CMWeapons["weapon_ex_double"] = {
 	Slot = 4,
 }
 
-CMWeapons["weapon_ex_laser"] = { 
-	Weight = 8,
+CMWeapons["weapon_ex_minigun"] = { 
+	Weight = 20,
 	Slot = 4,
 }
 
-CMWeapons["weapon_ex_minigun"] = { 
-	Weight = 20,
+CMWeapons["weapon_ex_mosin"] = { 
+	Weight = 6,
 	Slot = 4,
 }
 
@@ -234,26 +239,62 @@ CMWeapons["weapon_ex_nes"] = {
 	Slot = 2,
 }
 
+CMWeapons["weapon_ex_p90minigun"] = { 
+	Weight = 8,
+	Slot = 3,
+}
+
+
 CMWeapons["weapon_ex_rebelsniper"] = { 
-	Weight = 10,
+	Weight = 12,
 	Slot = 4,
 }
 
 --SMOD
 
-CMWeapons["weapon_smod_ak47"] = { 
+CMWeapons["weapon_smod_drank"] = { 
+	Weight = 2,
+	Slot = 0,
+}
+
+CMWeapons["weapon_smod_dualcolts"] = { 
 	Weight = 8,
-	Slot = 4,
+	Slot = 2,
 }
 
 CMWeapons["weapon_smod_greasegun"] = { 
-	Weight = 6,
+	Weight = 4,
 	Slot = 3,
 }
 
 CMWeapons["weapon_smod_kar98"] = { 
+	Weight = 8,
+	Slot = 4,
+}
+
+CMWeapons["weapon_smod_m1grande"] = { 
 	Weight = 7,
 	Slot = 4,
+}
+
+CMWeapons["weapon_smod_m4a1"] = { 
+	Weight = 7,
+	Slot = 4,
+}
+
+CMWeapons["weapon_smod_m60"] = { 
+	Weight = 11,
+	Slot = 4,
+}
+
+CMWeapons["weapon_smod_oicw"] = { 
+	Weight = 8,
+	Slot = 4,
+}
+
+CMWeapons["weapon_smod_soybeans"] = { 
+	Weight = 3,
+	Slot = 0,
 }
 
 CMWeapons["weapon_smod_svd"] = { 

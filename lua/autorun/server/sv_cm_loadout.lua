@@ -1,21 +1,23 @@
 function CM_PlayerSpawn(ply)
 
-	if not ply:IsBot() then
+	timer.Simple(0,function()
+		
+		local TotalWeight = 0
+		local LoadoutTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_weapons")))
+		local EquipmentTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_equipment")))
+		local Number = math.random(1,3)
+		
+		if not ply:IsBot() then
+			Number = tonumber(ply:GetInfo("cm_editor_basestats"))
+		end
+		
+		local ClassData = CMClasses[Number]
+		
+		local HealthToGive = ClassData.Health
+		local ArmorToGive = ClassData.Armor
+		local ShieldToGive = ClassData.Shield
 
-		timer.Simple(0,function()
-			
-			local TotalWeight = 0
-			local LoadoutTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_weapons")))
-			local EquipmentTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_equipment")))
-			local Number = tonumber(ply:GetInfo("cm_editor_basestats"))
-			local ClassData = CMClasses[Number]
-			
-			local HealthToGive = ClassData.Health
-			local ArmorToGive = ClassData.Armor
-			local ShieldToGive = ClassData.Shield
-			
-			
-			
+		if not ply:IsBot() then
 			for k,v in pairs(LoadoutTable) do
 			
 				--print(v)
@@ -64,32 +66,32 @@ function CM_PlayerSpawn(ply)
 				end
 				
 			end
+		end
 
-			ply:SetHealth(HealthToGive)
-			ply:SetMaxHealth(HealthToGive)
-			
-			ply:SetNWFloat("CM_Armor",ArmorToGive)
-			ply:SetNWFloat("CM_MaxArmor",ArmorToGive)
-			
-			ply:SetNWFloat("CM_Shield",ShieldToGive)
-			ply:SetNWFloat("CM_MaxShield",ShieldToGive)
-			
+		ply:SetHealth(HealthToGive)
+		ply:SetMaxHealth(HealthToGive)
+		
+		ply:SetNWFloat("CM_Armor",ArmorToGive)
+		ply:SetNWFloat("CM_MaxArmor",ArmorToGive)
+		
+		ply:SetNWFloat("CM_Shield",ShieldToGive)
+		ply:SetNWFloat("CM_MaxShield",ShieldToGive)
+		
+		if not ply:IsBot() then
 			if #LoadoutTable > 0 then
 				ply:ConCommand("cm_editor_weapons " .. string.Implode(" ",LoadoutTable))
 			else
-				ply:ConCommand("cm_editor_weapons  ")
+				ply:ConCommand("cm_editor_weapons weapon_bur_pee")
 			end
 			
 			if  #EquipmentTable > 0 then
 				ply:ConCommand("cm_editor_equipment " .. string.Implode(" ",EquipmentTable))
 			else
-				ply:ConCommand("cm_editor_equipment  ")
+				ply:ConCommand("cm_editor_equipment nothing")
 			end
-			
-
-		end)
+		end
 		
-	end
+	end)
 
 end
 
@@ -122,10 +124,11 @@ function CM_ScalePlayerDamage(ply,hitgroup,dmginfo)
 
 		if Shield > 0 and Damage > 0 then
 
-			if hitgroup == HITGROUP_HEAD and Damage >= Shield then
+			if Damage >= Shield then
+				dmginfo:SubtractDamage(Shield)
+				Damage = math.Clamp(Damage - Shield,0,99999)
 				ply:SetNWFloat("CM_Shield",0)
 			else
-				Damage = Damage*2
 				ply:SetNWFloat("CM_Shield", math.Clamp(Shield - Damage,0,MaxShield))
 				dmginfo:ScaleDamage(0)
 				Damage = 0
@@ -140,22 +143,21 @@ function CM_ScalePlayerDamage(ply,hitgroup,dmginfo)
 	if MaxArmor > 0 then
 	
 		if Armor > 0 and Damage > 0 then
-		
-			if hitgroup == HITGROUP_HEAD and Damage >= Armor then
-				ply:SetNWFloat("CM_Armor",0)
+			
+			if hitgroup == HITGROUP_HEAD then
+				dmginfo:ScaleDamage(0.75)
+				Damage = Damage*0.75
 			else
-				ply:SetNWFloat("CM_Armor",math.Clamp(Armor - Damage,0,MaxArmor))
-				dmginfo:ScaleDamage(0.25)
+				dmginfo:ScaleDamage(0.5)
+				Damage = Damage*0.5
 			end
+
+			ply:SetNWFloat("CM_Armor",math.Clamp(Armor - Damage*0.5,0,MaxArmor))
 
 		end
 		
 	end
 	
-	
-	
-
-
 end
 
 hook.Add("ScalePlayerDamage","CM: ScalePlayerDamage",CM_ScalePlayerDamage)
@@ -191,3 +193,29 @@ function CM_Think()
 end
 
 hook.Add("Think","CM: Think",CM_Think)
+
+
+local ForbiddenWeapons = {
+	"weapon_cs_he",
+	"weapon_cs_flash",
+	"weapon_cs_smoke",
+	"weapon_cs_rpg",
+	"weapon_smod_drank",
+	"weapon_cs_c4"
+}
+
+
+function CM_PreventWeaponExploits(ply,weapon,swep)
+
+	if table.HasValue(ForbiddenWeapons,weapon) then
+	
+		ply:ChatPrint(weapon .. " cannot be spawned due to the abusive nature of spawning this every time you need it.")
+	
+	
+		return false
+	end
+
+	return true
+end
+
+hook.Add("PlayerGiveSWEP","CM_PreventWeaponExploits",CM_PreventWeaponExploits)

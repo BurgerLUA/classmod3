@@ -7,7 +7,7 @@ CMClasses[1] = {
 	Desc = "Juggernaut Description",
 	
 	Health = 100,
-	Armor = 200,
+	Armor = 100,
 	Shield = 0
 	
 }
@@ -18,7 +18,7 @@ CMClasses[2] = {
 	Desc = "Soldier Description",
 	
 	Health = 100,
-	Armor = 100,
+	Armor = 50,
 	Shield = 50
 
 }

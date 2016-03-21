@@ -372,11 +372,11 @@ function CM_ShowClassMenu()
 					local SWEP = weapons.GetStored(k)
 					
 					if SWEP then
-						local ContentIcon = vgui.Create("ContentIcon",ListItem)
-						ContentIcon:SetMaterial("entities/" .. k)
-						ContentIcon:SetName(SWEP.PrintName or "NULL")
-						ContentIcon:SetPos(SpaceOffset,SpaceOffset)
-						ContentIcon.DoClick = function()
+						local WeaponContentIcon = vgui.Create("ContentIcon",ListItem)
+						WeaponContentIcon:SetMaterial("entities/" .. k)
+						WeaponContentIcon:SetName(SWEP.PrintName or "NULL")
+						WeaponContentIcon:SetPos(SpaceOffset,SpaceOffset)
+						WeaponContentIcon.DoClick = function()
 						
 							if ListItem.IsCurrentlySelected then
 								table.RemoveByValue(CurrentLoadout,k)

@@ -1,6 +1,18 @@
 -- Class Mod Addition Data
 CMEquipment = {}
 
+CMEquipment["nothing"] = {
+	Name = "Nothing",
+	Desc = "Torso DT Buff",
+	Mod = "nothing",
+	ModAmount = 5,
+	Weight = 0,
+	Slot = 0,
+}
+
+
+
+--[[
 -- Kevlar
 
 CMEquipment["kevlar_mk1"] = {
@@ -94,3 +106,6 @@ CMEquipment["shield_mk5"] = {
 	Weight = 10,
 	Slot = 2,
 }
+
+--]]
+
