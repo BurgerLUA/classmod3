@@ -252,6 +252,11 @@ CMWeapons["weapon_ex_rebelsniper"] = {
 
 --SMOD
 
+CMWeapons["weapon_smod_cz52"] = { 
+	Weight = 2.5,
+	Slot = 2,
+}
+
 CMWeapons["weapon_smod_drank"] = { 
 	Weight = 2,
 	Slot = 0,

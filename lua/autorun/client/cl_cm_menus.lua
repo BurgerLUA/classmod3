@@ -9,7 +9,6 @@ local CurrentEquipment = string.Explode(" ", string.Trim(GetConVar("cm_editor_we
 local CurrentLoadout = string.Explode(" ", string.Trim(GetConVar("cm_editor_weapons"):GetString()))
 
 local TotalWeight = 0
-local MaxWeight = 30
 
 local TextColorWhite = Color(255,255,255,255)
 local TextColorBlack = Color(0,0,0,255)
@@ -56,6 +55,8 @@ function CM_ShowClassMenu()
 	local SpaceOffset = 10
 	local TitleFontSize = 10
 	local LargeTitleFontSize = 40
+	
+	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
 	
 	local x = ScrW()*0.9
 	local y = ScrH()*0.9
@@ -285,7 +286,7 @@ function CM_ShowClassMenu()
 					WeightFill:SetPos(SpaceOffset/2,SpaceOffset/2)
 					WeightFill:SetSize(LW-SpaceOffset,LH-SpaceOffset)
 					WeightFill.Paint = function(self,w,h)
-						local WeightScale = TotalWeight / MaxWeight
+						local WeightScale = TotalWeight / WeightLimit
 						draw.RoundedBoxEx( 4, 0, 0, w * WeightScale, h, Color( 255 * WeightScale, 255 - (255*WeightScale), 0, 150 ), true,true,true,true )
 					end
 	
@@ -355,7 +356,7 @@ function CM_ShowClassMenu()
 						if self.IsCurrentlySelected then
 							RedMod = 0
 							BlueMod = 0
-						elseif ( (v.Weight + TotalWeight) > MaxWeight) then
+						elseif ( (v.Weight + TotalWeight) > WeightLimit) then
 							GreenMod = 0
 							BlueMod = 0
 						elseif CM_HasWeaponSlotSpace(v.Slot) then
@@ -382,7 +383,7 @@ function CM_ShowClassMenu()
 								table.RemoveByValue(CurrentLoadout,k)
 								ListItem.IsCurrentlySelected = false
 							else
-								if (v.Weight + TotalWeight) > MaxWeight or (CM_HasWeaponSlotSpace(v.Slot)) then
+								if (v.Weight + TotalWeight) > WeightLimit or (CM_HasWeaponSlotSpace(v.Slot)) then
 									surface.PlaySound( "buttons/weapon_cant_buy.wav" )
 								else
 									table.Add(CurrentLoadout,{k})
@@ -476,7 +477,7 @@ function CM_ShowClassMenu()
 							RedMod = 0
 							GreenMod = 255
 							BlueMod = 0
-						elseif ( (v.Weight + TotalWeight) > MaxWeight) then
+						elseif ( (v.Weight + TotalWeight) > WeightLimit) then
 							RedMod = 255
 							GreenMod = 0
 							BlueMod = 0
@@ -505,7 +506,7 @@ function CM_ShowClassMenu()
 								table.RemoveByValue(CurrentEquipment,k)
 								EquipmentListItem.IsCurrentlySelected = false
 							else
-								if (v.Weight + TotalWeight) > MaxWeight or (CM_HasEquipmentSlotSpace(v.Slot)) then
+								if (v.Weight + TotalWeight) > WeightLimit or (CM_HasEquipmentSlotSpace(v.Slot)) then
 									surface.PlaySound( "buttons/weapon_cant_buy.wav" )
 								else
 									table.Add(CurrentEquipment,{k})
@@ -585,7 +586,8 @@ end
 
 
 function CM_RedrawWeight(WeightValue)
-	
+
+	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
 	local Weapons = string.Explode(" ",string.Trim(GetConVar("cm_editor_weapons"):GetString()))
 	local Equipment = string.Explode(" ",string.Trim(GetConVar("cm_editor_equipment"):GetString()))
 
@@ -607,7 +609,7 @@ function CM_RedrawWeight(WeightValue)
 		end
 	end
 
-	WeightValue:SetText(TotalWeight .. "/" .. MaxWeight)
+	WeightValue:SetText(TotalWeight .. "/" .. WeightLimit)
 	WeightValue:SizeToContents()
 	WeightValue:Center()
 	
@@ -644,7 +646,7 @@ function CM_CustomHUD()
 	local TotalHeight = TotalWidth*0.25
 	
 	CM_DrawHealth(x,y,TotalWidth,TotalHeight)
-	CM_DrawAmmo(x,y,TotalWidth,TotalHeight)
+	--CM_DrawAmmo(x,y,TotalWidth,TotalHeight)
 		
 end
 
@@ -775,7 +777,7 @@ hook.Add("HUDPaint","CM: HUD PAINT",CM_CustomHUD)
 
 hook.Add( "HUDShouldDraw", "Hide Battery and Health", function( name )
 	
-	 if ( name == "CHudHealth" or name == "CHudBattery" or name == "CHudAmmo" ) then
+	 if ( name == "CHudHealth" or name == "CHudBattery" ) then
 		 return false
 	 end
 	

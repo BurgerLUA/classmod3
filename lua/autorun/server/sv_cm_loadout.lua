@@ -1,5 +1,7 @@
 function CM_PlayerSpawn(ply)
 
+	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
+
 	timer.Simple(0,function()
 		
 		local TotalWeight = 0
@@ -25,7 +27,7 @@ function CM_PlayerSpawn(ply)
 				local SWEP = CMWeapons[v]
 
 				if SWEP then
-					if TotalWeight + SWEP.Weight <= 30 then
+					if TotalWeight + SWEP.Weight <= WeightLimit then
 						TotalWeight = TotalWeight + SWEP.Weight
 						
 						local Weapon = ply:Give(v)
@@ -45,7 +47,7 @@ function CM_PlayerSpawn(ply)
 				local Object = CMEquipment[b]
 			
 				if Object then
-					if TotalWeight + Object.Weight <= 30 then
+					if TotalWeight + Object.Weight <= WeightLimit then
 						TotalWeight = TotalWeight + Object.Weight
 						
 						if Object.Mod == "health" then

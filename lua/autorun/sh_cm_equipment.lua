@@ -10,8 +10,6 @@ CMEquipment["nothing"] = {
 	Slot = 0,
 }
 
-
-
 --[[
 -- Kevlar
 

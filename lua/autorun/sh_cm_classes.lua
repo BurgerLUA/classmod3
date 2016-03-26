@@ -1,3 +1,5 @@
+CreateConVar( "sv_class_weightlimit", "100", FCVAR_ARCHIVE + FCVAR_NOTIFY + FCVAR_REPLICATED, "Maximum Weight Limit" )
+
 -- Class Mod Class Data
 CMClasses = {}
 
