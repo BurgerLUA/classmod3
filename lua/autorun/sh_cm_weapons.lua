@@ -50,7 +50,17 @@ CMWeapons["weapon_cs_glock"] = {
 	
 CMWeapons["weapon_cs_he"] = { 
 	Weight = 1,
-	Slot = 5,
+	Slot = 0,
+	}
+	
+CMWeapons["weapon_cs_flash"] = { 
+	Weight = 1.5,
+	Slot = 0,
+	}
+	
+CMWeapons["weapon_cs_smoke"] = { 
+	Weight = 2,
+	Slot = 0,
 	}
 	
 CMWeapons["weapon_cs_knife"] = { 
@@ -209,6 +219,11 @@ CMWeapons["weapon_cs_spas"] = {
 
 -- Extras
 
+CMWeapons["weapon_ex_ammo"] = { 
+	Weight = 5,
+	Slot = 0,
+}
+
 CMWeapons["weapon_ex_anna"] = { 
 	Weight = 6,
 	Slot = 4,
@@ -251,6 +266,11 @@ CMWeapons["weapon_ex_rebelsniper"] = {
 }
 
 --SMOD
+
+CMWeapons["weapon_smod_beangun"] = { 
+	Weight = 5,
+	Slot = 0,
+}
 
 CMWeapons["weapon_smod_cz52"] = { 
 	Weight = 2.5,

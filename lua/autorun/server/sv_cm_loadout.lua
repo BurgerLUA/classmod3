@@ -209,12 +209,13 @@ local ForbiddenWeapons = {
 
 function CM_PreventWeaponExploits(ply,weapon,swep)
 
-	if table.HasValue(ForbiddenWeapons,weapon) then
-	
-		ply:ChatPrint(weapon .. " cannot be spawned due to the abusive nature of spawning this every time you need it.")
-	
-	
-		return false
+	if #player.GetAll() > 1 then
+		if table.HasValue(ForbiddenWeapons,weapon) then
+		
+			ply:ChatPrint(weapon .. " cannot be spawned due to the abusive nature of spawning this every time you need it.")
+		
+			return false
+		end
 	end
 
 	return true
