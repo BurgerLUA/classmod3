@@ -63,6 +63,11 @@ CMWeapons["weapon_cs_smoke"] = {
 	Slot = 0,
 	}
 	
+CMWeapons["weapon_ex_gas"] = { 
+	Weight = 2,
+	Slot = 0,
+	}	
+	
 CMWeapons["weapon_cs_knife"] = { 
 	Weight = 0,
 	Slot = 1,
