@@ -203,7 +203,8 @@ local ForbiddenWeapons = {
 	"weapon_cs_smoke",
 	"weapon_cs_rpg",
 	"weapon_smod_drank",
-	"weapon_cs_c4"
+	"weapon_cs_c4",
+	"weapon_ex_gas"
 }
 
 
