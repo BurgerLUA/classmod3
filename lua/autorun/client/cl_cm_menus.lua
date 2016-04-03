@@ -645,7 +645,7 @@ function CM_CustomHUD()
 	local TotalWidth = 255
 	local TotalHeight = TotalWidth*0.25
 	
-	CM_DrawHealth(x,y,TotalWidth,TotalHeight)
+	--CM_DrawHealth(x,y,TotalWidth,TotalHeight)
 	--CM_DrawAmmo(x,y,TotalWidth,TotalHeight)
 		
 end
@@ -776,10 +776,10 @@ hook.Add("HUDPaint","CM: HUD PAINT",CM_CustomHUD)
 
 
 hook.Add( "HUDShouldDraw", "Hide Battery and Health", function( name )
-	
+	--[[
 	 if ( name == "CHudHealth" or name == "CHudBattery" ) then
 		 return false
 	 end
-	
+	--]]
 end )
 

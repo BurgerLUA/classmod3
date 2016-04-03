@@ -69,15 +69,17 @@ function CM_PlayerSpawn(ply)
 				
 			end
 		end
-
+		
 		ply:SetHealth(HealthToGive)
 		ply:SetMaxHealth(HealthToGive)
 		
+		--[[
 		ply:SetNWFloat("CM_Armor",ArmorToGive)
 		ply:SetNWFloat("CM_MaxArmor",ArmorToGive)
 		
 		ply:SetNWFloat("CM_Shield",ShieldToGive)
 		ply:SetNWFloat("CM_MaxShield",ShieldToGive)
+		--]]
 		
 		if not ply:IsBot() then
 			if #LoadoutTable > 0 then
@@ -109,7 +111,7 @@ hook.Add("ShowSpare2","CM: ShowSpare2 Override",CM_ShowSpare2)
 
 
 function CM_ScalePlayerDamage(ply,hitgroup,dmginfo)
-
+	--[[
 	local Damage = dmginfo:GetDamage()
 
 	local Shield = ply:GetNWFloat("CM_Shield",0)
@@ -159,7 +161,7 @@ function CM_ScalePlayerDamage(ply,hitgroup,dmginfo)
 		end
 		
 	end
-	
+	--]]
 end
 
 hook.Add("ScalePlayerDamage","CM: ScalePlayerDamage",CM_ScalePlayerDamage)
