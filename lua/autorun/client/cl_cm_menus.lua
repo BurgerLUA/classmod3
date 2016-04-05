@@ -373,31 +373,60 @@ function CM_ShowClassMenu()
 					local SWEP = weapons.GetStored(k)
 					
 					if SWEP then
-						local WeaponContentIcon = vgui.Create("ContentIcon",ListItem)
-						WeaponContentIcon:SetMaterial("entities/" .. k)
-						WeaponContentIcon:SetName(SWEP.PrintName or "NULL")
-						WeaponContentIcon:SetPos(SpaceOffset,SpaceOffset)
-						WeaponContentIcon.DoClick = function()
+					
+						local GetModel = SWEP.WorldModel
 						
-							if ListItem.IsCurrentlySelected then
-								table.RemoveByValue(CurrentLoadout,k)
-								ListItem.IsCurrentlySelected = false
-							else
-								if (v.Weight + TotalWeight) > WeightLimit or (CM_HasWeaponSlotSpace(v.Slot)) then
-									surface.PlaySound( "buttons/weapon_cant_buy.wav" )
+						if GetModel and GetModel ~= "" then
+						
+							local ModelPanel = vgui.Create( "DModelPanel",ListItem )
+							ModelPanel:SetPos( SpaceOffset, SpaceOffset )
+							ModelPanel:SetSize( 150, 150 )
+							ModelPanel:SetLookAt( Vector( 0,0,0 ) )
+						--	ModelPanel:SetLookAng( Angle(0,0,0) )
+							ModelPanel:SetFOV(10)
+							ModelPanel:SetModel( GetModel )
+							
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							--[[
+							local WeaponContentIcon = vgui.Create("ContentIcon",ListItem)
+							WeaponContentIcon:SetMaterial("entities/" .. k)
+							WeaponContentIcon:SetName(SWEP.PrintName or "NULL")
+							WeaponContentIcon:SetPos(SpaceOffset,SpaceOffset)
+							WeaponContentIcon.DoClick = function()
+							
+								if ListItem.IsCurrentlySelected then
+									table.RemoveByValue(CurrentLoadout,k)
+									ListItem.IsCurrentlySelected = false
 								else
-									table.Add(CurrentLoadout,{k})
-									ListItem.IsCurrentlySelected = true
+									if (v.Weight + TotalWeight) > WeightLimit or (CM_HasWeaponSlotSpace(v.Slot)) then
+										surface.PlaySound( "buttons/weapon_cant_buy.wav" )
+									else
+										table.Add(CurrentLoadout,{k})
+										ListItem.IsCurrentlySelected = true
+									end
 								end
+								
+								RunConsoleCommand("cm_editor_weapons", string.Trim(string.Implode(" ",CurrentLoadout)))
+								
+								timer.Simple(0, function()
+									CM_RedrawWeight(WeightValue)
+								end)
+							
 							end
-							
-							RunConsoleCommand("cm_editor_weapons", string.Trim(string.Implode(" ",CurrentLoadout)))
-							
-							timer.Simple(0, function()
-								CM_RedrawWeight(WeightValue)
-							end)
-						
+							--]]
 						end
+						
+						
 						
 						local WeaponNameFrame = vgui.Create("DPanel",ListItem)
 						WeaponNameFrame:SetPos(150,SpaceOffset)
