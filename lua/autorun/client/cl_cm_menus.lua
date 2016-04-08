@@ -85,12 +85,8 @@ function CM_ShowClassMenu()
 			FlashyColor.r = FlashyColor.r / 2
 			FlashyColor.g = FlashyColor.g / 2
 			FlashyColor.b = FlashyColor.b / 2
-			
-			
 			FlashyColor.a = 150
 			
-			
-		
 			draw.RoundedBoxEx( 4, 0, 0, w, h, FlashyColor, true,true,true,true )
 		end
 		
@@ -301,7 +297,7 @@ function CM_ShowClassMenu()
 		local LW, LH = AnotherFrame:GetSize()
 	
 			local WeaponFrame = vgui.Create("DPanel",BaseFrame)
-			WeaponFrame:SetSize(LW*0.5 - SpaceOffset*2, LH * 0.70 - SpaceOffset*5 )
+			WeaponFrame:SetSize(LW - SpaceOffset*2, LH * 0.70 - SpaceOffset*5 )
 			WeaponFrame:SetPos(SpaceOffset*2,SpaceOffset*7 + LH*0.30 )
 			WeaponFrame.Paint = function(self,w,h)
 				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
@@ -325,13 +321,27 @@ function CM_ShowClassMenu()
 
 				table.sort( Keys, function( a, b )
 	
-					if CMWeapons[a].Weight == CMWeapons[b].Weight then
+					if CMWeapons[a].Slot == 0 and CMWeapons[b].Slot == 0 then
+						if CMWeapons[a].Weight == CMWeapons[b].Weight then
+							return a < b
+						else
+							return CMWeapons[a].Weight < CMWeapons[b].Weight
+						end
+					elseif CMWeapons[a].Slot == 0 and CMWeapons[a].Slot ~= 0 then
 						return a < b
+					elseif CMWeapons[a].Slot == CMWeapons[b].Slot then
+						if CMWeapons[a].Weight == CMWeapons[b].Weight then
+							return a < b
+						else
+							return CMWeapons[a].Weight < CMWeapons[b].Weight
+						end
 					else
-						return CMWeapons[a].Weight < CMWeapons[b].Weight
+						return CMWeapons[a].Slot < CMWeapons[b].Slot
 					end
 		
 				end )
+				
+				local PanelHeight = 75
 
 				for i=1, #Keys do
 				
@@ -339,7 +349,7 @@ function CM_ShowClassMenu()
 					local v = CMWeapons[k]
 				
 					local ListItem = List:Add("DPanel")
-					ListItem:SetSize(LW,150) -- 150 is for the icon size
+					ListItem:SetSize(LW/3 - SpaceOffset*2,PanelHeight) -- 150 is for the icon size
 					
 					if table.HasValue(CurrentLoadout,k) then
 						ListItem.IsCurrentlySelected = true
@@ -372,82 +382,86 @@ function CM_ShowClassMenu()
 					
 					local SWEP = weapons.GetStored(k)
 					
-					if SWEP then
+					if SWEP or k == "weapon_physgun" then
 					
-						local GetModel = SWEP.WorldModel
+						local GetModel = ""
+						
+						if SWEP then
+							GetModel = SWEP.WorldModel
+						end
 						
 						if GetModel and GetModel ~= "" then
 						
 							local ModelPanel = vgui.Create( "DModelPanel",ListItem )
 							ModelPanel:SetPos( SpaceOffset, SpaceOffset )
-							ModelPanel:SetSize( 150, 150 )
+							ModelPanel:SetSize( PanelHeight, PanelHeight )
 							ModelPanel:SetLookAt( Vector( 0,0,0 ) )
 						--	ModelPanel:SetLookAng( Angle(0,0,0) )
 							ModelPanel:SetFOV(10)
 							ModelPanel:SetModel( GetModel )
-							
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-							--[[
-							local WeaponContentIcon = vgui.Create("ContentIcon",ListItem)
-							WeaponContentIcon:SetMaterial("entities/" .. k)
-							WeaponContentIcon:SetName(SWEP.PrintName or "NULL")
-							WeaponContentIcon:SetPos(SpaceOffset,SpaceOffset)
-							WeaponContentIcon.DoClick = function()
-							
-								if ListItem.IsCurrentlySelected then
-									table.RemoveByValue(CurrentLoadout,k)
-									ListItem.IsCurrentlySelected = false
-								else
-									if (v.Weight + TotalWeight) > WeightLimit or (CM_HasWeaponSlotSpace(v.Slot)) then
-										surface.PlaySound( "buttons/weapon_cant_buy.wav" )
-									else
-										table.Add(CurrentLoadout,{k})
-										ListItem.IsCurrentlySelected = true
-									end
-								end
-								
-								RunConsoleCommand("cm_editor_weapons", string.Trim(string.Implode(" ",CurrentLoadout)))
-								
-								timer.Simple(0, function()
-									CM_RedrawWeight(WeightValue)
-								end)
-							
-							end
-							--]]
+
 						end
-						
-						
-						
+
 						local WeaponNameFrame = vgui.Create("DPanel",ListItem)
-						WeaponNameFrame:SetPos(150,SpaceOffset)
-						WeaponNameFrame:SetSize(LW - 150 - SpaceOffset*2,LargeTitleFontSize + SpaceOffset)
+						WeaponNameFrame:SetPos(PanelHeight,SpaceOffset)
+						WeaponNameFrame:SetSize(LW - PanelHeight - SpaceOffset*2,LargeTitleFontSize + SpaceOffset)
 						WeaponNameFrame:SetText("")
 						WeaponNameFrame.Paint = function(self,w,h)
 							draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 						end
 						
+						local PrintName = "Physgun"
+						
+						if SWEP then
+							PrintName = SWEP.PrintName
+						end
+						
+						
 						local WeaponNameText = vgui.Create("DLabel",WeaponNameFrame)
-						WeaponNameText:SetText(SWEP.PrintName .. " [" .. v.Weight .. "KG]")
+						WeaponNameText:SetText(PrintName .. " [" .. v.Weight .. "KG]")
 						WeaponNameText:SetFont("ClassmodLarge")
 						WeaponNameText:SetTextColor(TextColorBlack)
 						WeaponNameText:SizeToContents()
 						WeaponNameText:Center()
 
+						local ButtonPanel = vgui.Create("DButton",ListItem)
+						ButtonPanel:SetPos(SpaceOffset,SpaceOffset)
+						ButtonPanel:SetText("")
+						ButtonPanel:SetSize(LW - SpaceOffset*2,LH - SpaceOffset*2)
+						ButtonPanel.DoClick = function()
+						
+							if ListItem.IsCurrentlySelected then
+								table.RemoveByValue(CurrentLoadout,k)
+								ListItem.IsCurrentlySelected = false
+							else
+								if (v.Weight + TotalWeight) > WeightLimit or (CM_HasWeaponSlotSpace(v.Slot)) then
+									surface.PlaySound( "buttons/weapon_cant_buy.wav" )
+								else
+									table.Add(CurrentLoadout,{k})
+									ListItem.IsCurrentlySelected = true
+								end
+							end
+							
+							RunConsoleCommand("cm_editor_weapons", string.Trim(string.Implode(" ",CurrentLoadout)))
+							
+							timer.Simple(0, function()
+								CM_RedrawWeight(WeightValue)
+							end)
+						
+						end
+						ButtonPanel.Paint = function(self,w,h)
+							--draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+						end
+						
+						
+						
 					end
 
 				end
 	
 		local LW, LH = AnotherFrame:GetSize()
+	
+			--[[
 	
 			local EquipmentFrame = vgui.Create("DPanel",BaseFrame)
 			EquipmentFrame:SetSize(LW*0.5 - SpaceOffset*2, LH * 0.70 - SpaceOffset*5 )
@@ -569,7 +583,7 @@ function CM_ShowClassMenu()
 					end
 
 				end	
-	
+	--]]
 
 	CM_RedrawWeight(WeightValue)
 	CM_RedrawStats(HealthValue,ShieldValue,ArmorValue)

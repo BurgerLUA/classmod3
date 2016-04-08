@@ -20,9 +20,10 @@ function CM_PlayerSpawn(ply)
 		local ShieldToGive = ClassData.Shield
 
 		if not ply:IsBot() then
+		
+			ply:StripWeapons()
+		
 			for k,v in pairs(LoadoutTable) do
-			
-				--print(v)
 				
 				local SWEP = CMWeapons[v]
 
@@ -206,9 +207,9 @@ local ForbiddenWeapons = {
 	"weapon_cs_rpg",
 	"weapon_smod_drank",
 	"weapon_cs_c4",
-	"weapon_ex_gas"
+	"weapon_ex_gas",
+	"weapon_smod_katana",
 }
-
 
 function CM_PreventWeaponExploits(ply,weapon,swep)
 

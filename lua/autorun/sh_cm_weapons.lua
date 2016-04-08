@@ -63,13 +63,8 @@ CMWeapons["weapon_cs_smoke"] = {
 	Slot = 0,
 	}
 	
-CMWeapons["weapon_ex_gas"] = { 
-	Weight = 2,
-	Slot = 0,
-	}	
-	
 CMWeapons["weapon_cs_knife"] = { 
-	Weight = 0,
+	Weight = 1,
 	Slot = 1,
 	}
 	
@@ -178,7 +173,7 @@ CMWeapons["weapon_bur_medkit"] = {
 -- HL2
 
 CMWeapons["weapon_cs_357"] = { 
-	Weight = 4,
+	Weight = 3,
 	Slot = 2,
 	}
 	
@@ -193,17 +188,17 @@ CMWeapons["weapon_cs_crossbow"] = {
 	}	
 	
 CMWeapons["weapon_cs_crowbar"] = { 
-	Weight = 1,
+	Weight = 2,
 	Slot = 1,
 	}
 
 CMWeapons["weapon_cs_pistol"] = { 
-	Weight = 3,
+	Weight = 4,
 	Slot = 2,
 	}	
 	
 CMWeapons["weapon_cs_pistolx2"] = { 
-	Weight = 6,
+	Weight = 8,
 	Slot = 2,
 	}	
 	
@@ -213,7 +208,7 @@ CMWeapons["weapon_cs_rpg"] = {
 	}
 	
 CMWeapons["weapon_cs_smg"] = { 
-	Weight = 5,
+	Weight = 4,
 	Slot = 3,
 	}
 	
@@ -230,18 +225,28 @@ CMWeapons["weapon_ex_ammo"] = {
 }
 
 CMWeapons["weapon_ex_anna"] = { 
-	Weight = 6,
-	Slot = 4,
+	Weight = 5,
+	Slot = 3,
 }
 
 CMWeapons["weapon_ex_combinesniper"] = { 
-	Weight = 9,
+	Weight = 10,
 	Slot = 4,
 }
 
 CMWeapons["weapon_ex_double"] = { 
 	Weight = 9,
 	Slot = 4,
+}
+
+CMWeapons["weapon_ex_gas"] = { 
+	Weight = 3,
+	Slot = 0,
+}
+
+CMWeapons["weapon_ex_gasgun"] = { 
+	Weight = 8,
+	Slot = 3,
 }
 
 CMWeapons["weapon_ex_minigun"] = { 
@@ -274,7 +279,12 @@ CMWeapons["weapon_ex_rebelsniper"] = {
 
 CMWeapons["weapon_smod_beangun"] = { 
 	Weight = 5,
-	Slot = 0,
+	Slot = 3,
+}
+
+CMWeapons["weapon_smod_combinecannon"] = { 
+	Weight = 9,
+	Slot = 4,
 }
 
 CMWeapons["weapon_smod_cz52"] = { 
@@ -302,6 +312,11 @@ CMWeapons["weapon_smod_kar98"] = {
 	Slot = 4,
 }
 
+CMWeapons["weapon_smod_katana"] = { 
+	Weight = 4,
+	Slot = 1,
+}
+
 CMWeapons["weapon_smod_m1grande"] = { 
 	Weight = 7,
 	Slot = 4,
@@ -313,7 +328,7 @@ CMWeapons["weapon_smod_m4a1"] = {
 }
 
 CMWeapons["weapon_smod_m60"] = { 
-	Weight = 11,
+	Weight = 10,
 	Slot = 4,
 }
 
@@ -328,7 +343,24 @@ CMWeapons["weapon_smod_soybeans"] = {
 }
 
 CMWeapons["weapon_smod_svd"] = { 
-	Weight = 10,
+	Weight = 9,
 	Slot = 4,
+}
+
+-- GMOD
+
+CMWeapons["gmod_camera"] = { 
+	Weight = 0,
+	Slot = 0,
+}
+
+CMWeapons["weapon_physgun"] = { 
+	Weight = 0,
+	Slot = 0,
+}
+
+CMWeapons["gmod_tool"] = { 
+	Weight = 0,
+	Slot = 0,
 }
 	
