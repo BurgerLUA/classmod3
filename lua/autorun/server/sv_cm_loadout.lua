@@ -21,7 +21,7 @@ function CM_PlayerSpawn(ply)
 
 		if not ply:IsBot() then
 		
-			ply:StripWeapons()
+			--ply:StripWeapons()
 		
 			for k,v in pairs(LoadoutTable) do
 				

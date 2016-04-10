@@ -50,17 +50,17 @@ CMWeapons["weapon_cs_glock"] = {
 	
 CMWeapons["weapon_cs_he"] = { 
 	Weight = 1,
-	Slot = 0,
+	Slot = 5,
 	}
 	
 CMWeapons["weapon_cs_flash"] = { 
 	Weight = 1.5,
-	Slot = 0,
+	Slot = 5,
 	}
 	
 CMWeapons["weapon_cs_smoke"] = { 
 	Weight = 2,
-	Slot = 0,
+	Slot = 5,
 	}
 	
 CMWeapons["weapon_cs_knife"] = { 
@@ -94,7 +94,7 @@ CMWeapons["weapon_cs_p90"] = {
 	}
 	
 CMWeapons["weapon_cs_p228"] = { 
-	Weight = 2,
+	Weight = 2.5,
 	Slot = 2,
 	}
 
@@ -129,7 +129,7 @@ CMWeapons["weapon_cs_ump"] =	{
 	}
 	
 CMWeapons["weapon_cs_usp"] =	{ 
-	Weight = 1,
+	Weight = 1.5,
 	Slot = 2,
 	}
 	
@@ -142,38 +142,38 @@ CMWeapons["weapon_cs_xm1014"] = {
 	
 CMWeapons["weapon_bur_pee"] = { 
 	Weight = 1,
-	Slot = 0,
+	Slot = -100,
 	}	
 	
 CMWeapons["weapon_bur_c4"] = { 
 	Weight = 3,
-	Slot = 0,
+	Slot = -101,
 }	
 
 CMWeapons["weapon_bur_gl"] = { 
 	Weight = 4,
-	Slot = 0,
+	Slot = -102,
 }
 
 CMWeapons["weapon_bur_tesla"] = { 
 	Weight = 3,
-	Slot = 0,
+	Slot = -101,
 }
 
 CMWeapons["weapon_bur_naughty"] = { 
-	Weight = 5,
-	Slot = 0,
+	Weight = 8,
+	Slot = -102,
 }
 
 CMWeapons["weapon_bur_medkit"] = { 
-	Weight = 1,
-	Slot = 0,
+	Weight = 3,
+	Slot = -100,
 }
 
 -- HL2
 
 CMWeapons["weapon_cs_357"] = { 
-	Weight = 3,
+	Weight = 4,
 	Slot = 2,
 	}
 	
@@ -218,11 +218,12 @@ CMWeapons["weapon_cs_spas"] = {
 	}	
 
 -- Extras
-
+--[[
 CMWeapons["weapon_ex_ammo"] = { 
 	Weight = 5,
 	Slot = 0,
 }
+--]]
 
 CMWeapons["weapon_ex_anna"] = { 
 	Weight = 5,
@@ -241,12 +242,12 @@ CMWeapons["weapon_ex_double"] = {
 
 CMWeapons["weapon_ex_gas"] = { 
 	Weight = 3,
-	Slot = 0,
+	Slot = 5,
 }
 
 CMWeapons["weapon_ex_gasgun"] = { 
-	Weight = 8,
-	Slot = 3,
+	Weight = 6,
+	Slot = -102,
 }
 
 CMWeapons["weapon_ex_minigun"] = { 
@@ -279,7 +280,7 @@ CMWeapons["weapon_ex_rebelsniper"] = {
 
 CMWeapons["weapon_smod_beangun"] = { 
 	Weight = 5,
-	Slot = 3,
+	Slot = -102,
 }
 
 CMWeapons["weapon_smod_combinecannon"] = { 
@@ -294,7 +295,7 @@ CMWeapons["weapon_smod_cz52"] = {
 
 CMWeapons["weapon_smod_drank"] = { 
 	Weight = 2,
-	Slot = 0,
+	Slot = -100,
 }
 
 CMWeapons["weapon_smod_dualcolts"] = { 
@@ -313,7 +314,7 @@ CMWeapons["weapon_smod_kar98"] = {
 }
 
 CMWeapons["weapon_smod_katana"] = { 
-	Weight = 4,
+	Weight = 8,
 	Slot = 1,
 }
 
@@ -339,7 +340,7 @@ CMWeapons["weapon_smod_oicw"] = {
 
 CMWeapons["weapon_smod_soybeans"] = { 
 	Weight = 3,
-	Slot = 0,
+	Slot = -101,
 }
 
 CMWeapons["weapon_smod_svd"] = { 
@@ -348,6 +349,7 @@ CMWeapons["weapon_smod_svd"] = {
 }
 
 -- GMOD
+--[[
 
 CMWeapons["gmod_camera"] = { 
 	Weight = 0,
@@ -363,4 +365,6 @@ CMWeapons["gmod_tool"] = {
 	Weight = 0,
 	Slot = 0,
 }
+
+--]]
 	

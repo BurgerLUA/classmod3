@@ -320,23 +320,24 @@ function CM_ShowClassMenu()
 				local Keys = table.GetKeys( CMWeapons )
 
 				table.sort( Keys, function( a, b )
+				
 	
-					if CMWeapons[a].Slot == 0 and CMWeapons[b].Slot == 0 then
+					if math.abs(CMWeapons[a].Slot) == 0 and math.abs(CMWeapons[b].Slot) == 0 then
 						if CMWeapons[a].Weight == CMWeapons[b].Weight then
 							return a < b
 						else
 							return CMWeapons[a].Weight < CMWeapons[b].Weight
 						end
-					elseif CMWeapons[a].Slot == 0 and CMWeapons[a].Slot ~= 0 then
+					elseif math.abs(CMWeapons[a].Slot) == 0 and math.abs(CMWeapons[a].Slot) ~= 0 then
 						return a < b
-					elseif CMWeapons[a].Slot == CMWeapons[b].Slot then
+					elseif math.abs(CMWeapons[a].Slot) == math.abs(CMWeapons[b].Slot) then
 						if CMWeapons[a].Weight == CMWeapons[b].Weight then
 							return a < b
 						else
 							return CMWeapons[a].Weight < CMWeapons[b].Weight
 						end
 					else
-						return CMWeapons[a].Slot < CMWeapons[b].Slot
+						return math.abs(CMWeapons[a].Slot) < math.abs(CMWeapons[b].Slot)
 					end
 		
 				end )
@@ -617,7 +618,7 @@ function CM_HasWeaponSlotSpace(slot)
 		if not CMWeapons[v] then
 			
 		else
-			if CMWeapons[v].Slot == slot and slot ~= 0 then
+			if CMWeapons[v].Slot == slot and (slot ~= 0 and slot ~= 5) then
 				return true
 			end
 		end
