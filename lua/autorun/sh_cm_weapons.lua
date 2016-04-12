@@ -278,6 +278,11 @@ CMWeapons["weapon_ex_rebelsniper"] = {
 
 --SMOD
 
+CMWeapons["weapon_smod_alyxgun"] = { 
+	Weight = 6,
+	Slot = 2,
+}
+
 CMWeapons["weapon_smod_beangun"] = { 
 	Weight = 5,
 	Slot = -102,
@@ -293,6 +298,11 @@ CMWeapons["weapon_smod_cz52"] = {
 	Slot = 2,
 }
 
+CMWeapons["weapon_smod_dbarrel"] = { 
+	Weight = 3,
+	Slot = 3,
+}
+
 CMWeapons["weapon_smod_drank"] = { 
 	Weight = 2,
 	Slot = -100,
@@ -301,6 +311,16 @@ CMWeapons["weapon_smod_drank"] = {
 CMWeapons["weapon_smod_dualcolts"] = { 
 	Weight = 8,
 	Slot = 2,
+}
+
+CMWeapons["weapon_smod_flamethrower"] = { 
+	Weight = 15,
+	Slot = 4,
+}
+
+CMWeapons["weapon_smod_gl"] = { 
+	Weight = 12,
+	Slot = 4,
 }
 
 CMWeapons["weapon_smod_greasegun"] = { 
@@ -333,6 +353,11 @@ CMWeapons["weapon_smod_m60"] = {
 	Slot = 4,
 }
 
+CMWeapons["weapon_smod_mp40"] = { 
+	Weight = 4,
+	Slot = 3,
+}
+
 CMWeapons["weapon_smod_oicw"] = { 
 	Weight = 8,
 	Slot = 4,
@@ -347,24 +372,3 @@ CMWeapons["weapon_smod_svd"] = {
 	Weight = 9,
 	Slot = 4,
 }
-
--- GMOD
---[[
-
-CMWeapons["gmod_camera"] = { 
-	Weight = 0,
-	Slot = 0,
-}
-
-CMWeapons["weapon_physgun"] = { 
-	Weight = 0,
-	Slot = 0,
-}
-
-CMWeapons["gmod_tool"] = { 
-	Weight = 0,
-	Slot = 0,
-}
-
---]]
-	
