@@ -225,10 +225,6 @@ CMWeapons["weapon_ex_ammo"] = {
 }
 --]]
 
-CMWeapons["weapon_ex_anna"] = { 
-	Weight = 5,
-	Slot = 3,
-}
 
 CMWeapons["weapon_ex_combinesniper"] = { 
 	Weight = 10,
@@ -270,10 +266,14 @@ CMWeapons["weapon_ex_p90minigun"] = {
 	Slot = 3,
 }
 
-
 CMWeapons["weapon_ex_rebelsniper"] = { 
 	Weight = 12,
 	Slot = 4,
+}
+
+CMWeapons["weapon_ex_stunstick"] = { 
+	Weight = 3,
+	Slot = 1,
 }
 
 --SMOD
@@ -281,6 +281,11 @@ CMWeapons["weapon_ex_rebelsniper"] = {
 CMWeapons["weapon_smod_alyxgun"] = { 
 	Weight = 6,
 	Slot = 2,
+}
+
+CMWeapons["weapon_smod_anna"] = { 
+	Weight = 5,
+	Slot = 3,
 }
 
 CMWeapons["weapon_smod_beangun"] = { 
