@@ -358,6 +358,11 @@ CMWeapons["weapon_smod_m60"] = {
 	Slot = 4,
 }
 
+CMWeapons["weapon_smod_maggrenade"] = { 
+	Weight = 5,
+	Slot = 5,
+}
+
 CMWeapons["weapon_smod_mp40"] = { 
 	Weight = 4,
 	Slot = 3,
