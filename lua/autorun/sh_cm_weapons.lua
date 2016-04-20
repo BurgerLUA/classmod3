@@ -141,33 +141,33 @@ CMWeapons["weapon_cs_xm1014"] = {
 -- Burger
 	
 CMWeapons["weapon_bur_pee"] = { 
-	Weight = 1,
-	Slot = -100,
+	Weight = 0,
+	Slot = 0,
 	}	
 	
 CMWeapons["weapon_bur_c4"] = { 
 	Weight = 3,
-	Slot = -101,
+	Slot = 5,
 }	
 
 CMWeapons["weapon_bur_gl"] = { 
 	Weight = 4,
-	Slot = -102,
+	Slot = 3,
 }
 
 CMWeapons["weapon_bur_tesla"] = { 
 	Weight = 3,
-	Slot = -101,
+	Slot = 5,
 }
 
 CMWeapons["weapon_bur_naughty"] = { 
 	Weight = 8,
-	Slot = -102,
+	Slot = 4,
 }
 
 CMWeapons["weapon_bur_medkit"] = { 
 	Weight = 3,
-	Slot = -100,
+	Slot = 0,
 }
 
 -- HL2
@@ -243,7 +243,7 @@ CMWeapons["weapon_ex_gas"] = {
 
 CMWeapons["weapon_ex_gasgun"] = { 
 	Weight = 6,
-	Slot = -102,
+	Slot = 3,
 }
 
 CMWeapons["weapon_ex_minigun"] = { 
@@ -290,7 +290,7 @@ CMWeapons["weapon_smod_anna"] = {
 
 CMWeapons["weapon_smod_beangun"] = { 
 	Weight = 5,
-	Slot = -102,
+	Slot = 3,
 }
 
 CMWeapons["weapon_smod_combinecannon"] = { 
@@ -310,12 +310,17 @@ CMWeapons["weapon_smod_dbarrel"] = {
 
 CMWeapons["weapon_smod_drank"] = { 
 	Weight = 2,
-	Slot = -100,
+	Slot = 0,
 }
 
 CMWeapons["weapon_smod_dualcolts"] = { 
 	Weight = 8,
 	Slot = 2,
+}
+
+CMWeapons["weapon_smod_fists"] = { 
+	Weight = 0,
+	Slot = 0,
 }
 
 CMWeapons["weapon_smod_flamethrower"] = { 
@@ -375,10 +380,73 @@ CMWeapons["weapon_smod_oicw"] = {
 
 CMWeapons["weapon_smod_soybeans"] = { 
 	Weight = 3,
-	Slot = -101,
+	Slot = 5,
 }
 
 CMWeapons["weapon_smod_svd"] = { 
 	Weight = 9,
 	Slot = 4,
 }
+
+CMWeapons["weapon_smod_tripmine"] = { 
+	Weight = 4,
+	Slot = 5,
+}
+
+function CM_CanNotSpawnWith(Slot)
+
+	local Weapons = string.Explode(" ",string.Trim(GetConVar("cm_editor_weapons"):GetString()))
+	
+	local NadeCount = 0
+	
+	local WeightCount = 0
+
+	for k,v in pairs(Weapons) do
+
+		local Weapon = CMWeapons[v]
+		
+		if Weapon then
+		
+			local WeaponSlot = Weapon.Slot
+			local WeaponWeight = Weapon.Weight
+			
+			WeightCount = WeightCount + WeaponWeight
+		
+			if WeaponSlot == 5 then
+				NadeCount = NadeCount + 1
+			elseif Slot ~= 0 and Slot ~= 6 then
+				if WeaponSlot == Slot then
+					return true
+				end
+			end
+			
+		end
+
+	end
+	
+	if NadeCount >= 3 and Slot == 5 then
+		return true
+	end
+
+	if WeightCount > GetConVar("sv_class_weightlimit"):GetFloat() then
+		return true
+	end
+	
+	return false
+	
+end
+
+
+function CM_RemoveWeapon(weapon,CurrentLoadout)
+
+	table.RemoveByValue(CurrentLoadout,weapon)
+	
+	if table.Count(CurrentLoadout) == 0 then
+		CurrentLoadout = {"none"}
+	elseif table.Count(CurrentLoadout) >= 2 and table.HasValue(CurrentLoadout,"none") then
+		table.RemoveByValue(CurrentLoadout,"none")
+	end
+	
+	return CurrentLoadout
+
+end

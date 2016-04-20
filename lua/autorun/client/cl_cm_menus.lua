@@ -1,11 +1,7 @@
 local DefaultWeapons = "weapon_cs_m4 weapon_cs_usp weapon_cs_knife weapon_cs_he"
-local DefaultEquipment = ""
 
-CreateClientConVar("cm_editor_basestats","2",true,true)
-CreateClientConVar("cm_editor_equipment",DefaultEquipment,true,true)
 CreateClientConVar("cm_editor_weapons",DefaultWeapons,true,true)
 
-local CurrentEquipment = string.Explode(" ", string.Trim(GetConVar("cm_editor_weapons"):GetString()))
 local CurrentLoadout = string.Explode(" ", string.Trim(GetConVar("cm_editor_weapons"):GetString()))
 
 local TotalWeight = 0
@@ -74,6 +70,8 @@ function CM_ShowClassMenu()
 		draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 	end
 	
+	local ListItem = {}
+	
 	local LW, LH = BaseFrame:GetSize()
 		
 		local AnotherFrame = vgui.Create("DPanel",BaseFrame)
@@ -92,176 +90,8 @@ function CM_ShowClassMenu()
 		
 		local LW, LH = AnotherFrame:GetSize()
 	
-			local StatsFrame = vgui.Create("DPanel",AnotherFrame)
-			StatsFrame:SetSize(LW*0.75 - SpaceOffset*3,LH*0.25)
-			StatsFrame:SetPos(LW*0.25 + SpaceOffset*2,SpaceOffset)
-			StatsFrame.Paint = function(self,w,h)
-				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
-			end
-	
-			local LW, LH = StatsFrame:GetSize()
-	
-				local StatsTitle = vgui.Create("DLabel",StatsFrame)
-				StatsTitle:SetPos(SpaceOffset/2,SpaceOffset/2)
-				StatsTitle:SetText("Class Stats")
-				StatsTitle:SetFont("ClassmodSmall")
-				StatsTitle:SetTextColor(TextColorWhite)
-				StatsTitle:SizeToContents()
-	
-				local HealthFrame = vgui.Create("DPanel",StatsFrame)
-				HealthFrame:SetPos(SpaceOffset,SpaceOffset*2 + 5)
-				HealthFrame:SetSize(50,20)
-				HealthFrame.Paint = function(self,w,h)
-					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 0, 0, 150 ), true,true,true,true )
-				end
-	
-				local LW, LH = HealthFrame:GetSize()
-	
-					local HealthText = vgui.Create("DLabel",HealthFrame)
-					HealthText:SetText("Health")
-					HealthText:SetFont("ClassmodSmall")
-					HealthText:SetTextColor(TextColorWhite)
-					HealthText:SizeToContents()
-					HealthText:Center()
-	
-					local HealthValue = vgui.Create("DLabel",StatsFrame)
-					HealthValue:SetText("100")
-					HealthValue:SetFont("ClassmodSmall")
-					HealthValue:SetTextColor(TextColorWhite)
-					HealthValue:SizeToContents()
-					HealthValue:SetPos(SpaceOffset*2 + 50,SpaceOffset*2 + 5)
-	
-				local ShieldFrame = vgui.Create("DPanel",StatsFrame)
-				ShieldFrame:SetPos(SpaceOffset,SpaceOffset*3 + 20 + 5)
-				ShieldFrame:SetSize(50,20)
-				ShieldFrame.Paint = function(self,w,h)
-					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 0, 0, 255, 150 ), true,true,true,true )
-				end
-	
-				local LW, LH = ShieldFrame:GetSize()
-	
-					local ShieldText = vgui.Create("DLabel",ShieldFrame)
-					ShieldText:SetText("Shields")
-					ShieldText:SetFont("ClassmodSmall")
-					ShieldText:SetTextColor(TextColorWhite)
-					ShieldText:SizeToContents()
-					ShieldText:Center()
-					
-					local ShieldValue = vgui.Create("DLabel",StatsFrame)
-					ShieldValue:SetText("100")
-					ShieldValue:SetFont("ClassmodSmall")
-					ShieldValue:SetTextColor(TextColorWhite)
-					ShieldValue:SizeToContents()
-					ShieldValue:SetPos(SpaceOffset*2 + 50,SpaceOffset*3 + 20 + 5)
-	
-				local ArmorFrame = vgui.Create("DPanel",StatsFrame)
-				ArmorFrame:SetPos(SpaceOffset,SpaceOffset*4 + 20 + 20 + 5)
-				ArmorFrame:SetSize(50,20)
-				ArmorFrame.Paint = function(self,w,h)
-					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 0, 150 ), true,true,true,true )
-				end
-	
-				local LW, LH = ArmorFrame:GetSize()
-	
-					local ArmorText = vgui.Create("DLabel",ArmorFrame)
-					ArmorText:SetText("Armor")
-					ArmorText:SetFont("ClassmodSmall")
-					ArmorText:SetTextColor(TextColorWhite)
-					ArmorText:SizeToContents()
-					ArmorText:Center()
-					
-					local ArmorValue = vgui.Create("DLabel",StatsFrame)
-					ArmorValue:SetText("100")
-					ArmorValue:SetFont("ClassmodSmall")
-					ArmorValue:SetTextColor(TextColorWhite)
-					ArmorValue:SizeToContents()
-					ArmorValue:SetPos(SpaceOffset*2 + 50,SpaceOffset*4 + 20 + 20 + 5)
-		
-		
-		
-	
-		local LW, LH = AnotherFrame:GetSize()
-			
-			local ClassFrame = vgui.Create("DPanel",AnotherFrame)
-			ClassFrame:SetSize(LW*0.25,LH*0.25)
-			ClassFrame:SetPos(SpaceOffset,SpaceOffset)
-			ClassFrame.Paint = function(self,w,h)
-				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
-			end
-			
-			local LW, LH = ClassFrame:GetSize()
-	
-				local ClassTitle = vgui.Create("DLabel",ClassFrame)
-				ClassTitle:SetPos(SpaceOffset/2,SpaceOffset/2)
-				ClassTitle:SetText("Base Protection")
-				ClassTitle:SetFont("ClassmodSmall")
-				ClassTitle:SetTextColor(TextColorWhite)
-				ClassTitle:SizeToContents()
-	
-				local ArmorButton = vgui.Create("DButton",ClassFrame)
-				ArmorButton:SetPos(SpaceOffset,SpaceOffset + TitleFontSize)
-				ArmorButton:SetSize(LW - SpaceOffset*2,LH*0.25)
-				ArmorButton:SetText("Armor")
-				ArmorButton:SetFont("ClassmodSmall")
-				ArmorButton:SetTextColor(TextColorWhite)
-				ArmorButton.Paint = function(self,w,h)
-					local Mod = 50
-					if GetConVar("cm_editor_basestats"):GetFloat() == 1 then
-						Mod = 255
-					end
-					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( Mod, Mod, 0, 150 ), true,true,true,true )
-				end
-				ArmorButton.DoClick = function()
-					RunConsoleCommand("cm_editor_basestats","1")
-					timer.Simple(0, function()
-						CM_RedrawStats(HealthValue,ShieldValue,ArmorValue,WeightValue)
-					end)
-				end
-	
-				local MixedButton = vgui.Create("DButton",ClassFrame)
-				MixedButton:SetPos(SpaceOffset, (SpaceOffset + TitleFontSize) + (SpaceOffset/2 + LH*0.25) )
-				MixedButton:SetSize(LW - SpaceOffset*2,LH*0.25)
-				MixedButton:SetText("Mixed")
-				MixedButton:SetFont("ClassmodSmall")
-				MixedButton:SetTextColor(TextColorWhite)
-				MixedButton.Paint = function(self,w,h)
-					local Mod = 0
-					if GetConVar("cm_editor_basestats"):GetFloat() == 2 then
-						Mod = 255
-					end
-					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( Mod/2, Mod/2, Mod/3, 150 ), true,true,true,true )
-				end
-				MixedButton.DoClick = function()
-					RunConsoleCommand("cm_editor_basestats","2")
-					timer.Simple(0, function()
-						CM_RedrawStats(HealthValue,ShieldValue,ArmorValue,WeightValue)
-					end)
-				end
-	
-				local ShieldButton = vgui.Create("DButton",ClassFrame)
-				ShieldButton:SetPos(SpaceOffset, (SpaceOffset + TitleFontSize) + (SpaceOffset/2 + LH*0.25)*2 )
-				ShieldButton:SetSize(LW - SpaceOffset*2,LH*0.25)
-				ShieldButton:SetText("Shields")
-				ShieldButton:SetFont("ClassmodSmall")
-				ShieldButton:SetTextColor(TextColorWhite)
-				ShieldButton.Paint = function(self,w,h)
-					local Mod = 50
-					if GetConVar("cm_editor_basestats"):GetFloat() == 3 then
-						Mod = 255
-					end
-					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 0, 0, Mod, 150 ), true,true,true,true )
-				end
-				ShieldButton.DoClick = function()
-					RunConsoleCommand("cm_editor_basestats","3")
-					timer.Simple(0, function()
-						CM_RedrawStats(HealthValue,ShieldValue,ArmorValue,WeightValue)
-					end)
-				end
-		
-		local LW, LH = AnotherFrame:GetSize()
-	
 			local WeightFrame = vgui.Create("DPanel",BaseFrame)
-			WeightFrame:SetPos(SpaceOffset*2,SpaceOffset*5 + LH*0.25)
+			WeightFrame:SetPos(SpaceOffset*2,SpaceOffset*4)
 			WeightFrame:SetSize(LW - SpaceOffset*2,LH*0.05 + SpaceOffset)
 			WeightFrame.Paint = function(self,w,h)
 				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
@@ -297,8 +127,8 @@ function CM_ShowClassMenu()
 		local LW, LH = AnotherFrame:GetSize()
 	
 			local WeaponFrame = vgui.Create("DPanel",BaseFrame)
-			WeaponFrame:SetSize(LW - SpaceOffset*2, LH * 0.70 - SpaceOffset*5 )
-			WeaponFrame:SetPos(SpaceOffset*2,SpaceOffset*7 + LH*0.30 )
+			WeaponFrame:SetSize(LW - SpaceOffset*2, LH * 0.90 - SpaceOffset*5 )
+			WeaponFrame:SetPos(SpaceOffset*2,SpaceOffset*6 + LH*0.05 )
 			WeaponFrame.Paint = function(self,w,h)
 				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 			end
@@ -342,23 +172,25 @@ function CM_ShowClassMenu()
 		
 				end )
 				
-				local PanelHeight = 75
-
+				local PanelHeight = 100
+				
 				for i=1, #Keys do
 				
 					local k = Keys[i]
 					local v = CMWeapons[k]
+					
+					
 				
-					local ListItem = List:Add("DPanel")
-					ListItem:SetSize(LW/3 - SpaceOffset*2,PanelHeight) -- 150 is for the icon size
+					ListItem[i] = List:Add("DPanel")
+					ListItem[i]:SetSize(LW/3 - SpaceOffset,PanelHeight)
 					
 					if table.HasValue(CurrentLoadout,k) then
-						ListItem.IsCurrentlySelected = true
+						ListItem[i].IsCurrentlySelected = true
 					else
-						ListItem.IsCurrentlySelected = false
+						ListItem[i].IsCurrentlySelected = false
 					end
 					
-					ListItem.Paint = function(self,w,h)
+					ListItem[i].Paint = function(self,w,h)
 					
 						local RedMod = 255
 						local GreenMod = 255
@@ -367,10 +199,7 @@ function CM_ShowClassMenu()
 						if self.IsCurrentlySelected then
 							RedMod = 0
 							BlueMod = 0
-						elseif ( (v.Weight + TotalWeight) > WeightLimit) then
-							GreenMod = 0
-							BlueMod = 0
-						elseif CM_HasWeaponSlotSpace(v.Slot) then
+						elseif CM_CanNotSpawnWith(v.Slot) then
 							GreenMod = 0
 							BlueMod = 0
 						end
@@ -379,7 +208,7 @@ function CM_ShowClassMenu()
 						
 					end
 					
-					local LW, LH = ListItem:GetSize()
+					local LW, LH = ListItem[i]:GetSize()
 					
 					local SWEP = weapons.GetStored(k)
 					
@@ -393,7 +222,7 @@ function CM_ShowClassMenu()
 						
 						if GetModel and GetModel ~= "" then
 						
-							local ModelPanel = vgui.Create( "DModelPanel",ListItem )
+							local ModelPanel = vgui.Create( "DModelPanel",ListItem[i] )
 							ModelPanel:SetPos( SpaceOffset, SpaceOffset )
 							ModelPanel:SetSize( PanelHeight, PanelHeight )
 							ModelPanel:SetLookAt( Vector( 0,0,0 ) )
@@ -403,7 +232,7 @@ function CM_ShowClassMenu()
 
 						end
 
-						local WeaponNameFrame = vgui.Create("DPanel",ListItem)
+						local WeaponNameFrame = vgui.Create("DPanel",ListItem[i])
 						WeaponNameFrame:SetPos(PanelHeight,SpaceOffset)
 						WeaponNameFrame:SetSize(LW - PanelHeight - SpaceOffset*2,LargeTitleFontSize + SpaceOffset)
 						WeaponNameFrame:SetText("")
@@ -425,21 +254,21 @@ function CM_ShowClassMenu()
 						WeaponNameText:SizeToContents()
 						WeaponNameText:Center()
 
-						local ButtonPanel = vgui.Create("DButton",ListItem)
+						local ButtonPanel = vgui.Create("DButton",ListItem[i])
 						ButtonPanel:SetPos(SpaceOffset,SpaceOffset)
 						ButtonPanel:SetText("")
 						ButtonPanel:SetSize(LW - SpaceOffset*2,LH - SpaceOffset*2)
 						ButtonPanel.DoClick = function()
 						
-							if ListItem.IsCurrentlySelected then
-								table.RemoveByValue(CurrentLoadout,k)
-								ListItem.IsCurrentlySelected = false
+							if ListItem[i].IsCurrentlySelected then
+								CurrentLoadout = CM_RemoveWeapon(k,CurrentLoadout)
+								ListItem[i].IsCurrentlySelected = false
 							else
-								if (v.Weight + TotalWeight) > WeightLimit or (CM_HasWeaponSlotSpace(v.Slot)) then
+								if CM_CanNotSpawnWith(v.Slot) then
 									surface.PlaySound( "buttons/weapon_cant_buy.wav" )
 								else
 									table.Add(CurrentLoadout,{k})
-									ListItem.IsCurrentlySelected = true
+									ListItem[i].IsCurrentlySelected = true
 								end
 							end
 							
@@ -462,194 +291,44 @@ function CM_ShowClassMenu()
 	
 		local LW, LH = AnotherFrame:GetSize()
 	
-			--[[
-	
-			local EquipmentFrame = vgui.Create("DPanel",BaseFrame)
-			EquipmentFrame:SetSize(LW*0.5 - SpaceOffset*2, LH * 0.70 - SpaceOffset*5 )
-			EquipmentFrame:SetPos(SpaceOffset*2 + LW*0.5,SpaceOffset*7 + LH*0.30 )
-			EquipmentFrame.Paint = function(self,w,h)
-				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
-			end
-	
-			local EquipmentScroll = vgui.Create("DScrollPanel",EquipmentFrame)
-			EquipmentScroll:StretchToParent(SpaceOffset,SpaceOffset,SpaceOffset,SpaceOffset)
-			EquipmentScroll:Center()
-			
-			local LW, LH = EquipmentScroll:GetSize()
-	
-				local EquipmentList = vgui.Create("DIconLayout",EquipmentScroll)
-				EquipmentList:SetSize(LW - SpaceOffset - 20,LH - SpaceOffset) -- 20 is for the scrollbars
-				EquipmentList:SetPos(0,0)
-				EquipmentList:SetSpaceX(SpaceOffset)
-				EquipmentList:SetSpaceY(SpaceOffset)
-
-				local LW, LH = EquipmentList:GetSize()
-	
-				local Keys = table.GetKeys( CMEquipment )
-
-				table.sort( Keys, function( a, b )
-	
-					if CMEquipment[a].Weight == CMEquipment[b].Weight then
-						return a < b
-					else
-						return CMEquipment[a].Weight < CMEquipment[b].Weight
-					end
-		
-				end )
-
-				for i=1, #Keys do
-				
-					local k = Keys[i]
-					local v = CMEquipment[k]
-				
-					local EquipmentListItem = EquipmentList:Add("DPanel")
-					EquipmentListItem:SetSize(LW,150) -- 150 is for the icon size
-					
-					if table.HasValue(CurrentEquipment,k) then
-						EquipmentListItem.IsCurrentlySelected = true
-					else
-						EquipmentListItem.IsCurrentlySelected = false
+			local ButtonFrame = vgui.Create("DButton",BaseFrame)
+				ButtonFrame:SetPos(SpaceOffset*2,SpaceOffset*2 + LH * 0.95)
+				ButtonFrame:SetText("RESET LOADOUT")
+				ButtonFrame:SetSize(LW - SpaceOffset*2,LH*0.05)
+				ButtonFrame.Paint = function(self,w,h)
+					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+				end
+				ButtonFrame.DoClick = function()
+					CurrentLoadout = {"none"}
+					for k,v in pairs(ListItem) do
+						v.IsCurrentlySelected = false
 					end
 					
-					EquipmentListItem.Paint = function(self,w,h)
+					timer.Simple(0, function()
+						CM_RedrawWeight(WeightValue)
+					end)
 					
-						local RedMod = 255
-						local GreenMod = 255
-						local BlueMod =  255
-						
-						if self.IsCurrentlySelected then
-							RedMod = 0
-							GreenMod = 255
-							BlueMod = 0
-						elseif ( (v.Weight + TotalWeight) > WeightLimit) then
-							RedMod = 255
-							GreenMod = 0
-							BlueMod = 0
-						elseif CM_HasEquipmentSlotSpace(v.Slot) then
-							RedMod = 255
-							GreenMod = 0
-							BlueMod = 0
-						end
-						
-						draw.RoundedBoxEx( 4, 0, 0, w, h, Color( RedMod, GreenMod, BlueMod, 150 ), true,true,true,true )
-						
-					end
-					
-					local LW, LH = EquipmentListItem:GetSize()
-					
-					local Object = v
-					
-					if Object then
-						local EquipmentContentIcon = vgui.Create("ContentIcon",EquipmentListItem)
-						--ContentIcon:SetMaterial("entities/" .. k)
-						EquipmentContentIcon:SetName(Object.Name or "NULL")
-						EquipmentContentIcon:SetPos(SpaceOffset,SpaceOffset)
-						EquipmentContentIcon.DoClick = function()
-						
-							if EquipmentListItem.IsCurrentlySelected then
-								table.RemoveByValue(CurrentEquipment,k)
-								EquipmentListItem.IsCurrentlySelected = false
-							else
-								if (v.Weight + TotalWeight) > WeightLimit or (CM_HasEquipmentSlotSpace(v.Slot)) then
-									surface.PlaySound( "buttons/weapon_cant_buy.wav" )
-								else
-									table.Add(CurrentEquipment,{k})
-									EquipmentListItem.IsCurrentlySelected = true
-								end
-							end
-							
-							RunConsoleCommand("cm_editor_equipment", string.Trim(string.Implode(" ",CurrentEquipment)))
-							
-							timer.Simple(0, function()
-								CM_RedrawWeight(WeightValue)
-							end)
-						
-						end
-						
-						local EquipmentNameFrame = vgui.Create("DPanel",EquipmentListItem)
-						EquipmentNameFrame:SetPos(150,SpaceOffset)
-						EquipmentNameFrame:SetSize(LW - 150 - SpaceOffset*2,LargeTitleFontSize + SpaceOffset)
-						EquipmentNameFrame:SetText("")
-						EquipmentNameFrame.Paint = function(self,w,h)
-							draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
-						end
-						
-						local EquipmentNameText = vgui.Create("DLabel",EquipmentNameFrame)
-						EquipmentNameText:SetText(Object.Name .. " [" .. v.Weight .. "KG]")
-						EquipmentNameText:SetFont("ClassmodLarge")
-						EquipmentNameText:SetTextColor(TextColorBlack)
-						EquipmentNameText:SizeToContents()
-						EquipmentNameText:Center()
-
-					end
-
-				end	
-	--]]
+					RunConsoleCommand("cm_editor_weapons", string.Trim(string.Implode(" ",CurrentLoadout)))
+				end
 
 	CM_RedrawWeight(WeightValue)
-	CM_RedrawStats(HealthValue,ShieldValue,ArmorValue)
 	
 end
 
 concommand.Add( "cm_menu", CM_ShowClassMenu)
 
-function CM_HasEquipmentSlotSpace(slot)
-
-	local Equipment = string.Explode(" ",string.Trim(GetConVar("cm_editor_equipment"):GetString()))
-	
-	for k,v in pairs(Equipment) do
-		if not CMEquipment[v] then
-			
-		else
-			if CMEquipment[v].Slot == slot and slot ~= 0 then
-				return true
-			end
-		end
-	end
-
-
-end
-
-function CM_HasWeaponSlotSpace(slot)
-
-	local Weapons = string.Explode(" ",string.Trim(GetConVar("cm_editor_weapons"):GetString()))
-	
-	for k,v in pairs(Weapons) do
-		if not CMWeapons[v] then
-			
-		else
-			if CMWeapons[v].Slot == slot and (slot ~= 0 and slot ~= 5) then
-				return true
-			end
-		end
-	end
-
-
-end
-
-
-
 function CM_RedrawWeight(WeightValue)
 
 	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
 	local Weapons = string.Explode(" ",string.Trim(GetConVar("cm_editor_weapons"):GetString()))
-	local Equipment = string.Explode(" ",string.Trim(GetConVar("cm_editor_equipment"):GetString()))
 
 	TotalWeight = 0
 	
 	for k,v in pairs(Weapons) do
 		if not CMWeapons[v] then
-			--print("FAGGOT")
+
 		else
 			TotalWeight = TotalWeight + CMWeapons[v].Weight
-		end
-	end
-	
-	for k,v in pairs(Equipment) do
-		if not CMEquipment[v] then
-			--print("FAGGOT")
-		else
-			TotalWeight = TotalWeight + CMEquipment[v].Weight
 		end
 	end
 
@@ -658,172 +337,3 @@ function CM_RedrawWeight(WeightValue)
 	WeightValue:Center()
 	
 end
-	
-function CM_RedrawStats(HealthValue,ShieldValue,ArmorValue)
-
-	local Var = GetConVar("cm_editor_basestats"):GetFloat()
-
-	if not (Var == 1 or Var == 2 or Var == 3) then
-		RunConsoleCommand("cm_editor_basestats","2")
-		Var = 2
-	end
-	
-	HealthValue:SetText(CMClasses[Var].Health)
-	HealthValue:SizeToContents()
-	
-	ShieldValue:SetText(CMClasses[Var].Shield)
-	ShieldValue:SizeToContents()
-	
-	ArmorValue:SetText(CMClasses[Var].Armor)
-	ArmorValue:SizeToContents()
-	
-end
-
-function CM_CustomHUD()
-
-	local ply = LocalPlayer()
-
-	local x = ScrW()
-	local y = ScrH()
-	
-	local TotalWidth = 255
-	local TotalHeight = TotalWidth*0.25
-	
-	--CM_DrawHealth(x,y,TotalWidth,TotalHeight)
-	--CM_DrawAmmo(x,y,TotalWidth,TotalHeight)
-		
-end
-
-local BaseColor = Color(255,255,255,255)
-local MaxColor = 255
-
-function CM_DrawHealth(x,y,TotalWidth,TotalHeight)
-
-	local ply = LocalPlayer()
-
-	local Health = ply:Health()
-	local MaxHealth = ply:GetMaxHealth()
-	
-	local Armor = math.floor(ply:GetNWFloat("CM_Armor",0))
-	local MaxArmor = ply:GetNWFloat("CM_MaxArmor",0)
-	
-	local Shield = math.floor(ply:GetNWFloat("CM_Shield",0))
-	local MaxShield = ply:GetNWFloat("CM_MaxShield",0)
-	
-
-	local HealthMul = math.Clamp(Health/MaxHealth,0,1)
-	local ArmorMul = math.Clamp(Armor/MaxArmor,0,1)
-	local ShieldMul =  math.Clamp(Shield/MaxShield,0,1)
-	
-	if MaxHealth == 0 then
-		HealthMul = 0
-	end
-	
-	if MaxArmor == 0 then
-		ArmorMul = 0
-	end
-	
-	if MaxShield == 0 then
-		ShieldMul = 0
-	end
-	
-	
-	
-	local AllMul = (HealthMul + ArmorMul + ShieldMul)
-	
-	local SpaceMul = 1/2
-
-	local MaxHealthScale = (MaxHealth / (MaxArmor + MaxShield + MaxHealth))
-	local MaxArmorScale = (MaxArmor / (MaxHealth + MaxShield + MaxArmor))
-	local MaxShieldScale = (MaxShield / (MaxArmor + MaxHealth + MaxShield))
-	
-	local BaseX = x*0.02
-	local BaseY = y - x*0.02 - TotalHeight
-	
-	local TotalAlpha = 200
-	
-	local Spacing = 4
-
-	
-	
-	--Base
-	draw.RoundedBox( 4, BaseX - Spacing*0.5, BaseY - Spacing*0.5, TotalWidth + Spacing,TotalHeight + Spacing, BaseColor )
-	
-	--Health
-	if Health > 0 then
-		draw.RoundedBox( 4, BaseX, BaseY, TotalWidth*MaxHealthScale*HealthMul,TotalHeight, Color(MaxColor,MaxColor/2,MaxColor/2,255) )
-		draw.SimpleText( Health, "DermaLarge", BaseX + TotalWidth*MaxHealthScale*HealthMul*0.5, BaseY + TotalHeight/2 , Color(0,0,0,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-		
-	end
-	
-	--Armor
-	if Armor > 0 then
-		draw.RoundedBox( 4, BaseX + TotalWidth*MaxHealthScale,BaseY,TotalWidth*MaxArmorScale*ArmorMul,TotalHeight,Color(MaxColor,MaxColor,0,TotalAlpha))
-		draw.SimpleText( Armor, "DermaLarge", BaseX + TotalWidth*MaxHealthScale + TotalWidth*MaxArmorScale*ArmorMul*0.5, BaseY + TotalHeight/2, Color(0,0,0,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-	end
-	
-	--Shields
-	if Shield > 0 then
-		draw.RoundedBox( 4,BaseX + TotalWidth*MaxHealthScale + TotalWidth*MaxArmorScale,BaseY,TotalWidth*MaxShieldScale*ShieldMul,TotalHeight,Color(0,0,MaxColor,TotalAlpha))
-		draw.SimpleText( Shield, "DermaLarge", BaseX + TotalWidth*MaxHealthScale + TotalWidth*MaxArmorScale + TotalWidth*MaxShieldScale*ShieldMul*0.5, BaseY + TotalHeight/2, Color(0,0,0,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-	end
-
-
-end
-
-
-
-function CM_DrawAmmo(x,y,TotalWidth,TotalHeight)
-	
-	local ply = LocalPlayer()
-	
-	local ClipAmmo = -1
-	local MaxAmmo = -1
-	local CurrentAmmo = -1
-	
-	local Weapon = ply:GetActiveWeapon()
-	
-	if IsValid(Weapon) then
-		ClipAmmo = Weapon:Clip1() or -1
-		MaxAmmo = Weapon:GetMaxClip1() or -1
-		CurrentAmmo = ply:GetAmmoCount(Weapon:GetPrimaryAmmoType())
-	end
-	
-	local BaseX = x*0.98 - TotalWidth
-	local BaseY = y - x*0.02 - TotalHeight
-	
-	local Spacing = 4
-	
-	local AmmoDisplay = ClipAmmo .. "/" .. CurrentAmmo
-	
-	local Mul = ClipAmmo / MaxAmmo
-	
-	if ClipAmmo == -1 and MaxAmmo == -1 and CurrentAmmo == -1  then
-		AmmoDisplay = "Infinity"
-	elseif ClipAmmo == -1 then
-		AmmoDisplay = CurrentAmmo
-	elseif CurrentAmmo == -1 then
-		AmmoDisplay = ClipAmmo
-	end
-	
-	draw.RoundedBox( 4, BaseX - Spacing*0.5, BaseY - Spacing*0.5, TotalWidth + Spacing,TotalHeight + Spacing, BaseColor )
-	
-	if Mul ~= 0 then
-		draw.RoundedBox( 4, BaseX + Spacing*0.25, BaseY + Spacing*0.25, (TotalWidth - Spacing*0.5)*Mul,TotalHeight - Spacing*0.5, Color(MaxColor,MaxColor,0,255) )
-	end
-	
-	draw.SimpleText( AmmoDisplay, "DermaLarge", BaseX + TotalWidth/2, BaseY + TotalHeight/2 , Color(0,0,0,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-
-end
-
-hook.Add("HUDPaint","CM: HUD PAINT",CM_CustomHUD)
-
-
-hook.Add( "HUDShouldDraw", "Hide Battery and Health", function( name )
-	--[[
-	 if ( name == "CHudHealth" or name == "CHudBattery" ) then
-		 return false
-	 end
-	--]]
-end )
-
