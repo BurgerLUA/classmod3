@@ -1,5 +1,3 @@
-CreateConVar( "sv_class_weightlimit", "100", FCVAR_ARCHIVE + FCVAR_NOTIFY + FCVAR_REPLICATED, "Maximum Weight Limit" )
-
 function CM_PlayerSpawn(ply)
 
 	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
@@ -66,6 +64,8 @@ local ForbiddenWeapons = {
 	"weapon_cs_c4",
 	"weapon_ex_gas",
 	"weapon_smod_katana",
+	"weapon_smod_tripmine",
+	"weapon_smod_maggrenade"
 }
 
 function CM_PreventWeaponExploits(ply,weapon,swep)
