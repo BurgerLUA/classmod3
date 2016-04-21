@@ -278,6 +278,11 @@ CMWeapons["weapon_ex_stunstick"] = {
 	Slot = 1,
 }
 
+CMWeapons["weapon_halo_plasmarifle"] = { 
+	Weight = 4,
+	Slot = 3,
+}
+
 --SMOD
 
 CMWeapons["weapon_smod_alyxgun"] = { 
@@ -394,6 +399,8 @@ CMWeapons["weapon_smod_tripmine"] = {
 	Weight = 4,
 	Slot = 5,
 }
+
+
 
 function CM_CanNotSpawnWith(Slot)
 
