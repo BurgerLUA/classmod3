@@ -9,6 +9,7 @@ local TotalWeight = 0
 local TextColorWhite = Color(255,255,255,255)
 local TextColorBlack = Color(0,0,0,255)
 
+
 surface.CreateFont( "ClassmodSmall", {
 	font = "Roboto-Medium",
 	size = 18,
@@ -151,37 +152,53 @@ function CM_ShowClassMenu()
 
 				table.sort( Keys, function( a, b )
 				
-	
-					if math.abs(CMWeapons[a].Slot) == 0 and math.abs(CMWeapons[b].Slot) == 0 then
-						if CMWeapons[a].Weight == CMWeapons[b].Weight then
+					local WeaponA = CMWeapons[a]
+					local WeaponB = CMWeapons[b]
+					local ply = LocalPlayer()
+					
+					if math.abs(WeaponA.Slot) == math.abs(WeaponB.Slot) then
+						if WeaponA.Weight == WeaponB.Weight then
 							return a < b
 						else
-							return CMWeapons[a].Weight < CMWeapons[b].Weight
+							return WeaponA.Weight < WeaponB.Weight
 						end
-					elseif math.abs(CMWeapons[a].Slot) == 0 and math.abs(CMWeapons[a].Slot) ~= 0 then
-						return a < b
-					elseif math.abs(CMWeapons[a].Slot) == math.abs(CMWeapons[b].Slot) then
-						if CMWeapons[a].Weight == CMWeapons[b].Weight then
-							return a < b
-						else
-							return CMWeapons[a].Weight < CMWeapons[b].Weight
-						end
-					else
-						return math.abs(CMWeapons[a].Slot) < math.abs(CMWeapons[b].Slot)
+					else	
+						return WeaponA.Slot < WeaponB.Slot
 					end
 		
 				end )
 				
 				local PanelHeight = 100
 				
+				local IsBlockExist = false
+				
+				local Blocker = nil
+				
+				local ply = LocalPlayer()
+				
 				for i=1, #Keys do
 				
 					local k = Keys[i]
 					local v = CMWeapons[k]
 					
-					
-				
+					if CM_IsRankEnabled() then
+						if SimpleXPGetLevel(ply) < v.Rank then
+						
+							if IsBlockExist == false then
+								Blocker =  List:Add("DPanel")
+								Blocker:SetSize(LW - SpaceOffset,PanelHeight)
+								Blocker.Paint = function(self,w,h)
+									draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 100, 100, 150 ), true,true,true,true )
+								end
+								IsBlockExist = true
+							end
+						end
+					end
+
 					ListItem[i] = List:Add("DPanel")
+					
+
+					
 					ListItem[i]:SetSize(LW/3 - SpaceOffset,PanelHeight)
 					
 					if table.HasValue(CurrentLoadout,k) then
@@ -199,11 +216,11 @@ function CM_ShowClassMenu()
 						if self.IsCurrentlySelected then
 							RedMod = 0
 							BlueMod = 0
-						elseif CM_CanNotSpawnWith(v.Slot) then
+						elseif not CM_CanSpawnWith(LocalPlayer(),k,false) then
 							GreenMod = 0
 							BlueMod = 0
 						end
-						
+
 						draw.RoundedBoxEx( 4, 0, 0, w, h, Color( RedMod, GreenMod, BlueMod, 150 ), true,true,true,true )
 						
 					end
@@ -240,6 +257,26 @@ function CM_ShowClassMenu()
 							draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 						end
 						
+						if CM_IsRankEnabled() then
+						
+							local DetailsFrame = vgui.Create("DPanel",ListItem[i])
+							DetailsFrame:SetPos(PanelHeight,SpaceOffset*3 + LargeTitleFontSize)
+							DetailsFrame:SetSize(LW - PanelHeight - SpaceOffset*2,TitleFontSize + SpaceOffset)
+							DetailsFrame:SetText("")
+							DetailsFrame.Paint = function(self,w,h)
+								draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+							end
+							
+							local DetailsText = vgui.Create("DLabel",DetailsFrame)
+							DetailsText:SetText("Requires " .. SimpleXPCheckRank(v.Rank))
+							DetailsText:SetFont("ClassmodSmall")
+							DetailsText:SetTextColor(TextColorBlack)
+							DetailsText:SizeToContents()
+							DetailsText:Center()
+							
+						end
+						
+						
 						local PrintName = "Physgun"
 						
 						if SWEP then
@@ -264,13 +301,14 @@ function CM_ShowClassMenu()
 								CurrentLoadout = CM_RemoveWeapon(k,CurrentLoadout)
 								ListItem[i].IsCurrentlySelected = false
 							else
-								if CM_CanNotSpawnWith(v.Slot) then
+								if not CM_CanSpawnWith(LocalPlayer(),k,true) then
 									surface.PlaySound( "buttons/weapon_cant_buy.wav" )
 								else
 									table.Add(CurrentLoadout,{k})
 									ListItem[i].IsCurrentlySelected = true
 								end
 							end
+							
 							
 							RunConsoleCommand("cm_editor_weapons", string.Trim(string.Implode(" ",CurrentLoadout)))
 							
@@ -283,10 +321,17 @@ function CM_ShowClassMenu()
 							--draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 						end
 						
-						
-						
 					end
 
+					--[[
+					if CM_IsRankEnabled() then
+						if SimpleXPGetLevel(ply) < v.Rank then
+							i = i - 1000
+						end
+					end
+					--]]
+					
+					
 				end
 	
 		local LW, LH = AnotherFrame:GetSize()
