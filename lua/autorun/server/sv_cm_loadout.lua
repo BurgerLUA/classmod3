@@ -1,59 +1,67 @@
 function CM_PlayerSpawn(ply)
 
-	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
-
-	timer.Simple(0,function()
-		
-		local TotalWeight = 0
-		local LoadoutTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_weapons")))
-
-		if RT_Timer("getmode") == "Warm Up" then
-		
-			ply:RemoveAllItems()
-			
-			ply:Give("weapon_smod_fists")
-		
-		else
-			if not ply:IsBot() then
-				for k,v in pairs(LoadoutTable) do
-				
-					local SWEP = CMWeapons[v]
-
-					if SWEP then
-						if TotalWeight + SWEP.Weight <= WeightLimit then
-							TotalWeight = TotalWeight + SWEP.Weight
-							
-							local Weapon = ply:Give(v)
-
-						else
-							ply:ChatPrint("ERROR: " .. v .. " exceeds weight limit.")
-							table.remove(LoadoutTable,k)
-						end
-					elseif v ~= "none" then
-						ply:ChatPrint("ERROR: Unknown weapon " .. v )
-						table.remove(LoadoutTable,k)
-					end
-					
-				end
-			end
-			
-			if not ply:IsBot() then
-				if #LoadoutTable > 0 then
-					if #LoadoutTable >= 2 then
-						table.RemoveByValue(LoadoutTable,"none")
-					end
-					ply:ConCommand("cm_editor_weapons " .. string.Implode(" ",LoadoutTable))
-				else
-					ply:ConCommand("cm_editor_weapons none")
-				end
-			end
-			
-		end
-	end)
+	
+	
 
 end
 
 hook.Add("PlayerSpawn","CM: PlayerSpawn",CM_PlayerSpawn)
+
+
+function CM_Loadout( ply )
+
+	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
+	local TotalWeight = 0
+	local LoadoutTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_weapons")))
+
+	if RT_Timer("getmode") == "Warm Up" then
+		ply:RemoveAllItems()
+		ply:Give("weapon_smod_fists")
+		return true
+	else
+		if not ply:IsBot() then
+		
+			ply:Give("weapon_physgun")
+			ply:Give("gmod_tool")
+		
+			for k,v in pairs(LoadoutTable) do
+			
+				local SWEP = CMWeapons[v]
+
+				if SWEP then
+					if TotalWeight + SWEP.Weight <= WeightLimit then
+						TotalWeight = TotalWeight + SWEP.Weight
+						
+						local Weapon = ply:Give(v)
+
+					else
+						ply:ChatPrint("ERROR: " .. v .. " exceeds weight limit.")
+						table.remove(LoadoutTable,k)
+					end
+				elseif v ~= "none" then
+					ply:ChatPrint("ERROR: Unknown weapon " .. v )
+					table.remove(LoadoutTable,k)
+				end
+				
+			end
+
+			if #LoadoutTable > 0 then
+				if #LoadoutTable >= 2 then
+					table.RemoveByValue(LoadoutTable,"none")
+				end
+				ply:ConCommand("cm_editor_weapons " .. string.Implode(" ",LoadoutTable))
+			else
+				ply:ConCommand("cm_editor_weapons none")
+			end
+			
+			return true
+			
+		end
+	end
+	
+end
+
+hook.Add("PlayerLoadout","CM_Loadout",CM_Loadout)
 
 function CM_ShowSpare2(ply)
 
@@ -80,9 +88,7 @@ function CM_PreventWeaponExploits(ply,weapon,swep)
 
 	if #player.GetHumans() > 1 then
 		if table.HasValue(ForbiddenWeapons,weapon) then
-		
 			ply:ChatPrint(weapon .. " cannot be spawned due to the abusive nature of spawning this every time you need it.")
-		
 			return false
 		end
 	end
