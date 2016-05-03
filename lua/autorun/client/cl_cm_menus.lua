@@ -187,11 +187,8 @@ function CM_ShowClassMenu()
 				local ForbiddenWeapons = {}
 
 				if CM_IsRankEnabled() then
-					--print("RANK ENABLED")
 					for k,v in pairs(AllowedWeapons) do
-						--print("CHECKING: ",k)
 						if v.Rank > SimpleXPGetLevel(ply) then
-							--print("REMOVING: ",k)
 							ForbiddenWeapons[k] = v
 							AllowedWeapons[k] = nil
 						end
@@ -237,7 +234,7 @@ function CM_ShowClassMenu()
 					end
 				end )
 				
-				PrintTable(ForbiddenWeapons)
+				--PrintTable(ForbiddenWeapons)
 
 				local ply = LocalPlayer()
 				
@@ -298,8 +295,10 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 
 	local k = Keys[i]
 	local v = CMWeapons[k]
-	
-	if not v then return end
+
+	if not v then
+		--List:Remove()
+	return end
 	
 	if IsForbidden then
 		if CM_IsRankEnabled() then
@@ -449,8 +448,9 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 			--draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 		end
 		
+	else
+		ListItem[i]:Remove()
 	end
-
 
 end
 

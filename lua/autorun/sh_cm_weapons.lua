@@ -518,8 +518,6 @@ CMWeapons["weapon_snip_m82"] = { -- T4 Sniper
 	Rank = 50,
 }
 
-print("LOADED WEAPON LOADOUT DATA")
-
 function CM_GetPlayerWeapons(ply)
 	if CLIENT then
 		Weapons = string.Explode(" ",string.Trim(GetConVar("cm_editor_weapons"):GetString()))
