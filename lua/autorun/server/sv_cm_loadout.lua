@@ -21,6 +21,8 @@ function CM_Loadout( ply )
 	else
 		if not ply:IsBot() then
 		
+			ply:StripAmmo()
+		
 			ply:Give("weapon_physgun")
 			ply:Give("gmod_tool")
 		
