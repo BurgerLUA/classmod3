@@ -16,7 +16,7 @@ function CM_Loadout( ply )
 
 	if RT_Timer("getmode") == "Warm Up" then
 		ply:RemoveAllItems()
-		ply:Give("weapon_smod_fists")
+		ply:Give("weapon_hl2_fists")
 		return true
 	else
 		if not ply:IsBot() then
