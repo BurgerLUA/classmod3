@@ -13,55 +13,48 @@ function CM_Loadout( ply )
 	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
 	local TotalWeight = 0
 	local LoadoutTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_weapons")))
-	--[[
-	if RT_Timer("getmode") == "Warm Up" then
-		ply:RemoveAllItems()
-		ply:Give("weapon_hl2_fists")
-		return true
-	else
-	--]]
-		if not ply:IsBot() then
-		
-			ply:StripAmmo()
-		
-			ply:Give("weapon_physgun")
-			ply:Give("gmod_tool")
-		
-			for k,v in pairs(LoadoutTable) do
-			
-				local SWEP = CMWeapons[v]
 
-				if SWEP then
-					if TotalWeight + SWEP.Weight <= WeightLimit then
-						TotalWeight = TotalWeight + SWEP.Weight
-						
-						local Weapon = ply:Give(v)
+	if not ply:IsBot() then
+	
+		ply:StripAmmo()
+	
+		ply:Give("weapon_physgun")
+		ply:Give("gmod_tool")
+	
+		for k,v in pairs(LoadoutTable) do
+		
+			local SWEP = CMWeapons[v]
 
-					else
-						ply:ChatPrint("ERROR: " .. v .. " exceeds weight limit.")
-						table.remove(LoadoutTable,k)
-					end
-				elseif v ~= "none" then
-					ply:ChatPrint("ERROR: Unknown weapon " .. v )
+			if SWEP then
+				if TotalWeight + SWEP.Weight <= WeightLimit then
+					TotalWeight = TotalWeight + SWEP.Weight
+					
+					local Weapon = ply:Give(v)
+
+				else
+					ply:ChatPrint("ERROR: " .. v .. " exceeds weight limit.")
 					table.remove(LoadoutTable,k)
 				end
-				
+			elseif v ~= "none" then
+				ply:ChatPrint("ERROR: Unknown weapon " .. v )
+				table.remove(LoadoutTable,k)
 			end
-
-			if #LoadoutTable > 0 then
-				if #LoadoutTable >= 2 then
-					table.RemoveByValue(LoadoutTable,"none")
-				end
-				ply:ConCommand("cm_editor_weapons " .. string.Implode(" ",LoadoutTable))
-			else
-				ply:ConCommand("cm_editor_weapons none")
-			end
-			
-			return true
 			
 		end
-	--end
-	
+
+		if #LoadoutTable > 0 then
+			if #LoadoutTable >= 2 then
+				table.RemoveByValue(LoadoutTable,"none")
+			end
+			ply:ConCommand("cm_editor_weapons " .. string.Implode(" ",LoadoutTable))
+		else
+			ply:ConCommand("cm_editor_weapons none")
+		end
+		
+		return true
+		
+	end
+
 end
 
 hook.Add("PlayerLoadout","CM_Loadout",CM_Loadout)
