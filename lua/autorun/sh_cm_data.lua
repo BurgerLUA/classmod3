@@ -274,6 +274,8 @@ CMWeapons["weapon_hl2_tesla"] = { -- T4 Nade
 	
 -- Extras
 
+--[[
+
 CMWeapons["weapon_ex_as50"] = { -- T4 Sniper
 	Weight = 15,
 	Slot = 4,
@@ -509,3 +511,5 @@ CMWeapons["weapon_smod_tripmine"] = { -- T4 Equipment
 	Slot = 5,
 	Rank = 55,
 }
+
+--]]
