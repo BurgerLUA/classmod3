@@ -13,12 +13,13 @@ function CM_Loadout( ply )
 	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
 	local TotalWeight = 0
 	local LoadoutTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_weapons")))
-
+	--[[
 	if RT_Timer("getmode") == "Warm Up" then
 		ply:RemoveAllItems()
 		ply:Give("weapon_hl2_fists")
 		return true
 	else
+	--]]
 		if not ply:IsBot() then
 		
 			ply:StripAmmo()
@@ -59,7 +60,7 @@ function CM_Loadout( ply )
 			return true
 			
 		end
-	end
+	--end
 	
 end
 
