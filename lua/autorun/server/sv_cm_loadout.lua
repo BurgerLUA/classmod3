@@ -67,6 +67,7 @@ end
 
 hook.Add("ShowSpare2","CM: ShowSpare2 Override",CM_ShowSpare2)
 
+--[[
 local ForbiddenWeapons = {
 	"weapon_cs_he",
 	"weapon_cs_flash",
@@ -79,9 +80,11 @@ local ForbiddenWeapons = {
 	"weapon_smod_tripmine",
 	"weapon_smod_maggrenade"
 }
+--]]
 
 function CM_PreventWeaponExploits(ply,weapon,swep)
 
+	--[[
 	if #player.GetHumans() > 1 then
 		if table.HasValue(ForbiddenWeapons,weapon) then
 			ply:ChatPrint(weapon .. " cannot be spawned due to the abusive nature of spawning this every time you need it.")
@@ -90,6 +93,10 @@ function CM_PreventWeaponExploits(ply,weapon,swep)
 	end
 
 	return true
+	--]]
+	
+	return false
+	
 end
 
 hook.Add("PlayerGiveSWEP","CM_PreventWeaponExploits",CM_PreventWeaponExploits)

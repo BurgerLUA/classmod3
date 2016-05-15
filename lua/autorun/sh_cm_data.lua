@@ -170,28 +170,28 @@ CMWeapons["weapon_cs_xm1014"] = { -- T3 Shotgun
 
 -- FreeWeapons / HL2
 
-CMWeapons["weapon_hl2_357"] = { -- T4 Pistol
+CMWeapons["weapon_hl2_357"] = { -- T3 Pistol
 	Weight = 4,
 	Slot = 2,
-	Rank = 35,
+	Rank = 14,
 	}
 	
-CMWeapons["weapon_hl2_ar2"] = { -- T4 Rifle
+CMWeapons["weapon_hl2_ar2"] = { -- T3 Rifle
 	Weight = 7,
 	Slot = 4,
-	Rank = 45,
+	Rank = 22,
 	}	
 
-CMWeapons["weapon_hl2_c4"] = { -- T3 Nade
+CMWeapons["weapon_hl2_c4"] = { -- T2 Nade
 	Weight = 3,
 	Slot = 5,
-	Rank = 30,
+	Rank = 12,
 }	
 	
-CMWeapons["weapon_hl2_crossbow"] = { -- T4 Misc
+CMWeapons["weapon_hl2_crossbow"] = { -- T3 Misc
 	Weight = 8,
 	Slot = 4,
-	Rank = 55,
+	Rank = 30,
 	}	
 	
 CMWeapons["weapon_hl2_crowbar"] = { -- T2 Melee
@@ -206,17 +206,21 @@ CMWeapons["weapon_hl2_fists"] = { -- T1 Melee
 	Rank = 0,
 }
 	
+	--[[
 CMWeapons["weapon_hl2_gas"] = { -- T3 Nade
 	Weight = 3,
 	Slot = 5,
 	Rank = 30,
 }
+--]]
 
+--[[
 CMWeapons["weapon_hl2_gasgun"] = { -- T3 Misc
 	Weight = 6,
 	Slot = 3,
 	Rank = 30,
 }	
+--]]
 	
 CMWeapons["weapon_hl2_medkit"] = { -- T1 Healing
 	Weight = 3,
@@ -236,10 +240,10 @@ CMWeapons["weapon_hl2_pistol"] = { -- T3 Pistol
 	Rank = 14,
 	}	
 	
-CMWeapons["weapon_hl2_rpg"] = { -- T4 Misc
+CMWeapons["weapon_hl2_rpg"] = { -- T3 Misc
 	Weight = 10,
 	Slot = 4,
-	Rank = 55,
+	Rank = 30,
 	}
 	
 CMWeapons["weapon_hl2_sensorlauncher"] = { -- T3 Nade
@@ -266,10 +270,10 @@ CMWeapons["weapon_hl2_stunstick"] = { -- T3 Melee
 	Rank = 14,
 }
 
-CMWeapons["weapon_hl2_tesla"] = { -- T4 Nade
+CMWeapons["weapon_hl2_tesla"] = { -- T3 Misc
 	Weight = 3,
 	Slot = 5,
-	Rank = 55,
+	Rank = 30,
 }		
 	
 -- Extras
@@ -380,28 +384,34 @@ CMWeapons["weapon_ex_sako"] = { -- T3 Sniper
 
 --SMOD
 
-CMWeapons["weapon_smod_alyxgun"] = { -- T4 Pistol
+--]]
+
+CMWeapons["weapon_smod_alyxgun"] = { -- T3 Pistol
 	Weight = 6,
 	Slot = 2,
-	Rank = 35,
+	Rank = 14,
 }
 
 CMWeapons["weapon_smod_anna"] = { -- T3 SMG
 	Weight = 5,
 	Slot = 3,
-	Rank = 22,
+	Rank = 18,
 }
 
-CMWeapons["weapon_smod_beangun"] = { -- T4 Misc
+--[[
+
+CMWeapons["weapon_smod_beangun"] = { -- T3 Misc
 	Weight = 5,
 	Slot = 3,
 	Rank = 55,
 }
 
-CMWeapons["weapon_smod_combinecannon"] = { -- T4 Rifle
+--]]
+
+CMWeapons["weapon_smod_combinecannon"] = { -- T3 Rifle
 	Weight = 9,
 	Slot = 4,
-	Rank = 45,
+	Rank = 22,
 }
 
 CMWeapons["weapon_smod_cz52"] = { -- T3 Pistol
@@ -422,40 +432,44 @@ CMWeapons["weapon_smod_drank"] = { -- T1 Misc
 	Rank = 0,
 }
 
-CMWeapons["weapon_smod_dualcolts"] = { -- T5 Special
+CMWeapons["weapon_smod_dualcolts"] = { -- T4 Pistol
 	Weight = 8,
 	Slot = 2,
-	Rank = 65,
+	Rank = 35,
 }
 
+--[[
 CMWeapons["weapon_smod_flamethrower"] = { -- T4 Misc
 	Weight = 15,
 	Slot = 4,
 	Rank = 55,
 }
+--]]
 
+--[[
 CMWeapons["weapon_smod_gl"] = { -- T4 Misc
 	Weight = 12,
 	Slot = 4,
 	Rank = 55,
 }
+--]]
 
-CMWeapons["weapon_smod_greasegun"] = { -- T2 SMG
+CMWeapons["weapon_smod_greasegun"] = { -- T3 SMG
 	Weight = 4,
 	Slot = 3,
-	Rank = 3,
+	Rank = 18,
 }
 
-CMWeapons["weapon_smod_kar98"] = { -- T3 Sniper
+CMWeapons["weapon_smod_kar98"] = { -- T2 Sniper
 	Weight = 8,
 	Slot = 4,
-	Rank = 26,
+	Rank = 8,
 }
 
-CMWeapons["weapon_smod_katana"] = { -- T4 Melee
+CMWeapons["weapon_smod_katana"] = { -- T3 Melee
 	Weight = 8,
 	Slot = 1,
-	Rank = 35,
+	Rank = 14,
 }
 
 CMWeapons["weapon_smod_m1grande"] = { -- T3 Rifle
@@ -470,35 +484,40 @@ CMWeapons["weapon_smod_m4a1"] = { -- T3 Rifle
 	Rank = 22,
 }
 
-CMWeapons["weapon_smod_m60"] = { -- T4 Rifle
+CMWeapons["weapon_smod_m60"] = { -- T3 Rifle
 	Weight = 10,
 	Slot = 4,
-	Rank = 45,
+	Rank = 22,
 }
 
-CMWeapons["weapon_smod_maggrenade"] = { -- T4 Equipment
+--[[
+CMWeapons["weapon_smod_maggrenade"] = { -- T3 Equipment
 	Weight = 5,
 	Slot = 5,
 	Rank = 55,
 }
+--]]
 
-CMWeapons["weapon_smod_mp40"] = { -- T2 SMG
+CMWeapons["weapon_smod_mp40"] = { -- T3 SMG
 	Weight = 4,
 	Slot = 3,
-	Rank = 3,
+	Rank = 18,
 }
 
-CMWeapons["weapon_smod_oicw"] = { -- T4 Rifle
+CMWeapons["weapon_smod_oicw"] = { -- T3 Rifle
 	Weight = 8,
 	Slot = 4,
-	Rank = 45,
+	Rank = 22,
 }
 
-CMWeapons["weapon_smod_soybeans"] = { -- T4 Equipment
+--[[
+CMWeapons["weapon_smod_soybeans"] = { -- T3 Equipment
 	Weight = 3,
 	Slot = 5,
 	Rank = 55,
 }
+--]]
+
 
 CMWeapons["weapon_smod_svd"] = { -- T3 Sniper
 	Weight = 9,
@@ -506,10 +525,8 @@ CMWeapons["weapon_smod_svd"] = { -- T3 Sniper
 	Rank = 26,
 }
 
-CMWeapons["weapon_smod_tripmine"] = { -- T4 Equipment
+CMWeapons["weapon_smod_tripmine"] = { -- T2 Equipment
 	Weight = 4,
 	Slot = 5,
-	Rank = 55,
+	Rank = 11,
 }
-
---]]
