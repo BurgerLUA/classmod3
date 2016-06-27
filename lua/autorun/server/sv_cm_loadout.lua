@@ -18,21 +18,17 @@ function CM_Loadout( ply )
 	
 		ply:StripAmmo()
 	
-		ply:Give("weapon_physgun")
-		ply:Give("gmod_tool")
+		--ply:Give("weapon_physgun")
+		--ply:Give("gmod_tool")
 	
 		for k,v in pairs(LoadoutTable) do
 		
 			local SWEP = CMWeapons[v]
 
 			if SWEP then
-				if TotalWeight + SWEP.Weight <= WeightLimit then
-					TotalWeight = TotalWeight + SWEP.Weight
-					
-					local Weapon = ply:Give(v)
-
+				if CM_CanSpawnWith(ply,v,true) then
+					ply:Give(v)
 				else
-					ply:ChatPrint("ERROR: " .. v .. " exceeds weight limit.")
 					table.remove(LoadoutTable,k)
 				end
 			elseif v ~= "none" then

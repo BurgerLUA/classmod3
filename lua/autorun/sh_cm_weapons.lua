@@ -76,33 +76,37 @@ function CM_CanSpawnWith(ply,weapon,givereason)
 		for k,v in pairs(Weapons) do
 			if CMWeapons[v] then
 				local Weapon02 = CMWeapons[v]
+				
+				if Weapon01 ~= Weapon02 then
 
-				if CM_SharesSameSlot(Weapon01,Weapon02) then
-					if givereason then
-						print("SHARES SAME SLOT")
+					if CM_SharesSameSlot(Weapon01,Weapon02) then
+						if givereason then
+							print("SHARES SAME SLOT")
+						end
+						return false
 					end
-					return false
-				end
 
-				if Weapon02.Slot == 5 then
-					GrenadeCount = GrenadeCount + 1
+					if Weapon02.Slot == 5 then
+						GrenadeCount = GrenadeCount + 1
+					end
+					
+					if GrenadeCount > 3 then
+						if givereason then
+							print("YOU HAVE MORE THAN 3 GRENADES")
+						end
+						return false
+					end
+
+					TotalWeight = TotalWeight + Weapon02.Weight
+					
+					if TotalWeight > CM_GetMaxWeight() then
+						if givereason then
+							print("TOTAL WEIGHT EXCEEDS MAXIMUM WEIGHT.")
+						end
+						return false
+					end	
 				end
 				
-				if GrenadeCount > 3 then
-					if givereason then
-						print("YOU HAVE MORE THAN 3 GRENADES")
-					end
-					return false
-				end
-
-				TotalWeight = TotalWeight + Weapon02.Weight
-				
-				if TotalWeight > CM_GetMaxWeight() then
-					if givereason then
-						print("TOTAL WEIGHT EXCEEDS MAXIMUM WEIGHT.")
-					end
-					return false
-				end	
 			end
 		end
 		
@@ -144,3 +148,12 @@ end
 function CM_GetMaxWeight()
 	return ( GetConVar("sv_class_weightlimit"):GetFloat() )
 end
+
+
+
+hook.Add("CanDrive","Fuck Driving",function() return false end)
+
+hook.Add("CanProperty","Fuck stuff", function(ply,property,ent)
+	if property ~= "remover" then return false end
+ end)
+

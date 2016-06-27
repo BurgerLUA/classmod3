@@ -14,8 +14,6 @@ local TextColorBlack = Color(0,0,0,255)
 
 -- Misc >Nade > Melee > Sniper > Rifle > Shotgun > Smg > Pistol
 
-
-
 -- 0, All T1
 
 -- 1, T2 Pistols, T2 Melee
@@ -475,3 +473,4 @@ function CM_RedrawWeight(WeightValue)
 	WeightValue:Center()
 	
 end
+
