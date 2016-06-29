@@ -91,7 +91,7 @@ function CM_PreventWeaponExploits(ply,weapon,swep)
 	return true
 	--]]
 	
-	return false
+	return not game.SinglePlayer()
 	
 end
 
