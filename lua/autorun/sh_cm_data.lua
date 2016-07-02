@@ -530,3 +530,41 @@ CMWeapons["weapon_smod_tripmine"] = { -- T2 Equipment
 	Slot = 5,
 	Rank = 11,
 }
+
+-- Halo
+
+CMWeapons["weapon_halo_carbine"] = { -- T2 Equipment
+	Weight = 8,
+	Slot = 4,
+	Rank = 0,
+}
+
+CMWeapons["weapon_halo_magnum"] = { -- T2 Equipment
+	Weight = 6,
+	Slot = 2,
+	Rank = 0,
+}
+
+CMWeapons["weapon_halo_plasmarifle"] = { -- T2 Equipment
+	Weight = 6,
+	Slot = 3,
+	Rank = 0,
+}
+
+CMWeapons["weapon_halo_smg"] = { -- T2 Equipment
+	Weight = 4,
+	Slot = 3,
+	Rank = 0,
+}
+
+CMWeapons["weapon_halo_sniper"] = { -- T2 Equipment
+	Weight = 10,
+	Slot = 4,
+	Rank = 0,
+}
+
+
+
+
+
+
