@@ -221,7 +221,8 @@ CMWeapons["weapon_hl2_gasgun"] = { -- T3 Misc
 	Rank = 30,
 }	
 --]]
-	
+
+--[[
 CMWeapons["weapon_hl2_medkit"] = { -- T1 Healing
 	Weight = 3,
 	Slot = 0,
@@ -233,6 +234,7 @@ CMWeapons["weapon_hl2_pee"] = { -- T1 Misc
 	Slot = 0,
 	Rank = 1,
 }	
+--]]
 
 CMWeapons["weapon_hl2_pistol"] = { -- T3 Pistol
 	Weight = 4,
@@ -426,11 +428,13 @@ CMWeapons["weapon_smod_dbarrel"] = { -- T3 Shotgun
 	Rank = 18,
 }
 
+--[[
 CMWeapons["weapon_smod_drank"] = { -- T1 Misc
 	Weight = 2,
 	Slot = 0,
 	Rank = 0,
 }
+--]]
 
 CMWeapons["weapon_smod_dualcolts"] = { -- T4 Pistol
 	Weight = 8,
