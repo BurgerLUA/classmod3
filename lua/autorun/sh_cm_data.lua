@@ -563,6 +563,12 @@ CMWeapons["weapon_halo_sniper"] = { -- T2 Equipment
 	Rank = 0,
 }
 
+CMWeapons["weapon_halo_shotgun"] = { -- T2 Equipment
+	Weight = 6,
+	Slot = 3,
+	Rank = 0,
+}
+
 
 
 
