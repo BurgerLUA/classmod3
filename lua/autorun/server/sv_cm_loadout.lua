@@ -80,19 +80,12 @@ local ForbiddenWeapons = {
 
 function CM_PreventWeaponExploits(ply,weapon,swep)
 
-	--[[
 	if #player.GetHumans() > 1 then
-		if table.HasValue(ForbiddenWeapons,weapon) then
-			ply:ChatPrint(weapon .. " cannot be spawned due to the abusive nature of spawning this every time you need it.")
-			return false
-		end
+		return false
 	end
 
 	return true
-	--]]
-	
-	return not game.SinglePlayer()
-	
+
 end
 
 hook.Add("PlayerGiveSWEP","CM_PreventWeaponExploits",CM_PreventWeaponExploits)

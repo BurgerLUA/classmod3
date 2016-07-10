@@ -360,6 +360,12 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 		
 		if SWEP then
 			GetModel = SWEP.WorldModel
+			
+			if SWEP.UseThisWorldModel then
+				GetModel = SWEP.UseThisWorldModel
+			end
+			
+			
 		end
 		
 		if GetModel and GetModel ~= "" then

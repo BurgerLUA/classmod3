@@ -149,11 +149,7 @@ function CM_GetMaxWeight()
 	return ( GetConVar("sv_class_weightlimit"):GetFloat() )
 end
 
-
-
-hook.Add("CanDrive","Fuck Driving",function() return false end)
-
 hook.Add("CanProperty","Fuck stuff", function(ply,property,ent)
-	if property ~= "remover" then return false end
+	--if property ~= "remover" then return false end
  end)
 

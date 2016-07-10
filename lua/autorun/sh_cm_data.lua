@@ -562,7 +562,7 @@ CMWeapons["weapon_halo_smg"] = { -- T2 Equipment
 }
 
 CMWeapons["weapon_halo_sniper"] = { -- T2 Equipment
-	Weight = 10,
+	Weight = 8,
 	Slot = 4,
 	Rank = 0,
 }
@@ -573,8 +573,88 @@ CMWeapons["weapon_halo_shotgun"] = { -- T2 Equipment
 	Rank = 0,
 }
 
+CMWeapons["weapon_halo_sword"] = { -- T2 Equipment
+	Weight = 12,
+	Slot = 1,
+	Rank = 0,
+}
 
+CMWeapons["weapon_halo_battlerifle"] = { -- T2 Equipment
+	Weight = 10,
+	Slot = 4,
+	Rank = 0,
+}
 
+-- Fistful of Frags
 
+CMWeapons["weapon_burfof_carbine"] = { -- T2 Equipment
+	Weight = 7,
+	Slot = 4,
+	Rank = 0,
+}
 
+CMWeapons["weapon_burfof_coachgun"] = { -- T2 Equipment
+	Weight = 6,
+	Slot = 3,
+	Rank = 0,
+}
 
+CMWeapons["weapon_burfof_coltnavy"] = { -- T2 Equipment
+	Weight = 3,
+	Slot = 2,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_deringer"] = { -- T2 Equipment
+	Weight = 0.5,
+	Slot = 2,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_henry"] = { -- T2 Equipment
+	Weight = 8,
+	Slot = 4,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_maresleg"] = { -- T2 Equipment
+	Weight = 5,
+	Slot = 3,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_peacemaker"] = { -- T2 Equipment
+	Weight = 4,
+	Slot = 2,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_sawedshotgun"] = { -- T2 Equipment
+	Weight = 5,
+	Slot = 3,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_schofield"] = { -- T2 Equipment
+	Weight = 8,
+	Slot = 4,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_sharps"] = { -- T2 Equipment
+	Weight = 8,
+	Slot = 4,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_shotgun"] = { -- T2 Equipment
+	Weight = 3,
+	Slot = 7,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_volcanic"] = { -- T2 Equipment
+	Weight = 4,
+	Slot = 2,
+	Rank = 0,
+}
