@@ -241,13 +241,15 @@ CMWeapons["weapon_hl2_pistol"] = { -- T3 Pistol
 	Slot = 2,
 	Rank = 14,
 	}	
-	
+
+--[[
 CMWeapons["weapon_hl2_rpg"] = { -- T3 Misc
 	Weight = 10,
 	Slot = 4,
 	Rank = 30,
 	}
-	
+--]]
+
 CMWeapons["weapon_hl2_sensorlauncher"] = { -- T3 Nade
 	Weight = 4,
 	Slot = 3,
@@ -563,6 +565,12 @@ CMWeapons["weapon_halo_smg"] = { -- T2 Equipment
 
 CMWeapons["weapon_halo_sniper"] = { -- T2 Equipment
 	Weight = 8,
+	Slot = 4,
+	Rank = 0,
+}
+
+CMWeapons["weapon_halo_beamrifle"] = { -- T2 Equipment
+	Weight = 9,
 	Slot = 4,
 	Rank = 0,
 }
