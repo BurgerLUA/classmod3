@@ -80,11 +80,13 @@ local ForbiddenWeapons = {
 
 function CM_PreventWeaponExploits(ply,weapon,swep)
 
+	--[[
 	if #player.GetHumans() > 1 then
 		return false
 	end
+	--]]
 
-	return true
+	return false
 
 end
 

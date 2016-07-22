@@ -595,6 +595,18 @@ CMWeapons["weapon_halo_battlerifle"] = { -- T2 Equipment
 
 -- Fistful of Frags
 
+CMWeapons["weapon_burfof_axe"] = { -- T2 Equipment
+	Weight = 6,
+	Slot = 1,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_bow"] = { -- T2 Equipment
+	Weight = 2,
+	Slot = 4,
+	Rank = 0,
+}
+
 CMWeapons["weapon_burfof_carbine"] = { -- T2 Equipment
 	Weight = 7,
 	Slot = 4,
@@ -622,6 +634,18 @@ CMWeapons["weapon_burfof_deringer"] = { -- T2 Equipment
 CMWeapons["weapon_burfof_henry"] = { -- T2 Equipment
 	Weight = 8,
 	Slot = 4,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_knife"] = { -- T2 Equipment
+	Weight = 2,
+	Slot = 1,
+	Rank = 0,
+}
+
+CMWeapons["weapon_burfof_machete"] = { -- T2 Equipment
+	Weight = 5,
+	Slot = 1,
 	Rank = 0,
 }
 
