@@ -1,168 +1,168 @@
 CMWeapons = {}
 
-CMWeapons["weapon_cs_ak47"] = { -- T2 Rifle
+CMWeapons["weapon_burger_cs_ak47"] = { -- T2 Rifle
 	Weight = 7,
 	Slot = 4,
 	Rank = 5,
 }
 
-CMWeapons["weapon_cs_aug"] =	{ -- T3 Rifle
+CMWeapons["weapon_burger_cs_aug"] =	{ -- T3 Rifle
 	Weight = 7,
 	Slot = 4,
 	Rank = 22,
 }
 
-CMWeapons["weapon_cs_awp"] =	{  -- T3 Sniper
+CMWeapons["weapon_burger_cs_awp"] =	{  -- T3 Sniper
 	Weight = 9,
 	Slot = 4,
 	Rank = 26,
 }
 	
-CMWeapons["weapon_cs_deserteagle"] = { -- T3 Pistol
+CMWeapons["weapon_burger_cs_deserteagle"] = { -- T3 Pistol
 	Weight = 3,
 	Slot = 2,
 	Rank = 14,
 }
 	
-CMWeapons["weapon_cs_dualbertta"] = { -- T3 Pistol
+CMWeapons["weapon_burger_cs_dualbertta"] = { -- T3 Pistol
 	Weight = 4,
 	Slot = 2,
 	Rank = 14,
 }
 
-CMWeapons["weapon_cs_famas"] = { -- T2 Rifle
+CMWeapons["weapon_burger_cs_famas"] = { -- T2 Rifle
 	Weight = 6,
 	Slot = 4,
 	Rank = 5,
 }
 	
-CMWeapons["weapon_cs_fiveseven"] = { -- T2 Pistol
+CMWeapons["weapon_burger_cs_fiveseven"] = { -- T2 Pistol
 	Weight = 2,
 	Slot = 2,
 	Rank = 1,
 }
 	
-CMWeapons["weapon_cs_g3"] = { -- T3 Sniper
+CMWeapons["weapon_burger_cs_g3"] = { -- T3 Sniper
 	Weight = 8,
 	Slot = 4,
 	Rank = 26,
 }
 	
-CMWeapons["weapon_cs_galil"] = { -- T1 Rifle
+CMWeapons["weapon_burger_cs_galil"] = { -- T1 Rifle
 	Weight = 6,
 	Slot = 4,
 	Rank = 0,
 }
 	
-CMWeapons["weapon_cs_glock"] = { -- T1 Pistol
+CMWeapons["weapon_burger_cs_glock"] = { -- T1 Pistol
 	Weight = 1,
 	Slot = 2,
 	Rank = 0,
 	}
 	
-CMWeapons["weapon_cs_he"] = { -- T1 Nade
+CMWeapons["weapon_burger_cs_he"] = { -- T1 Nade
 	Weight = 1,
 	Slot = 5,
 	Rank = 0,
 	}
 	
-CMWeapons["weapon_cs_flash"] = { -- T2 Nade
+CMWeapons["weapon_burger_cs_flash"] = { -- T2 Nade
 	Weight = 1.5,
 	Slot = 5,
 	Rank = 11,
 	}
 	
-CMWeapons["weapon_cs_smoke"] = { -- T3 Nade
+CMWeapons["weapon_burger_cs_smoke"] = { -- T3 Nade
 	Weight = 2,
 	Slot = 5,
 	Rank = 30,
 	}
 	
-CMWeapons["weapon_cs_knife"] = { -- T1 Melee
+CMWeapons["weapon_burger_cs_knife"] = { -- T1 Melee
 	Weight = 1,
 	Slot = 1,
 	Rank = 0,
 	}
 	
-CMWeapons["weapon_cs_m3"] = { -- T1 Shotgun
+CMWeapons["weapon_burger_cs_m3"] = { -- T1 Shotgun
 	Weight = 4,
 	Slot = 3,
 	Rank = 0,
 	}
 	
-CMWeapons["weapon_cs_m4"] = { -- T1 Rifle
+CMWeapons["weapon_burger_cs_m4"] = { -- T1 Rifle
 	Weight = 6,
 	Slot = 4,
 	Rank = 0,
 	}
 
-CMWeapons["weapon_cs_mac10"] = { -- T1 SMG
+CMWeapons["weapon_burger_cs_mac10"] = { -- T1 SMG
 	Weight = 4,
 	Slot = 3,
 	Rank = 0,
 	}
 	
-CMWeapons["weapon_cs_mp5"] = { -- T2 SMG
+CMWeapons["weapon_burger_cs_mp5"] = { -- T2 SMG
 	Weight = 4,
 	Slot = 3,
 	Rank = 3,
 	}
 	
-CMWeapons["weapon_cs_p90"] = { -- T3 SMG
+CMWeapons["weapon_burger_cs_p90"] = { -- T3 SMG
 	Weight = 5,
 	Slot = 3,
 	Rank = 18,
 	}
 	
-CMWeapons["weapon_cs_p228"] = { -- T2 Pistol
+CMWeapons["weapon_burger_cs_p228"] = { -- T2 Pistol
 	Weight = 2.5,
 	Slot = 2,
 	Rank = 1,
 	}
 
-CMWeapons["weapon_cs_para"] = { -- T3 Rifle
+CMWeapons["weapon_burger_cs_para"] = { -- T3 Rifle
 	Weight = 9,
 	Slot = 4,
 	Rank = 22,
 	}
 
-CMWeapons["weapon_cs_scout"] = { -- T1 Sniper
+CMWeapons["weapon_burger_cs_scout"] = { -- T1 Sniper
 	Weight = 5,
 	Slot = 4,
 	Rank = 0,
 	}
 
-CMWeapons["weapon_cs_sig550"] = { -- T3 Sniper
+CMWeapons["weapon_burger_cs_sig550"] = { -- T3 Sniper
 	Weight = 8,
 	Slot = 4,
 	Rank = 26,
 	}
 
-CMWeapons["weapon_cs_sig552"] = { -- T3 Rifle
+CMWeapons["weapon_burger_cs_sig552"] = { -- T3 Rifle
 	Weight = 7,
 	Slot = 4,
 	Rank = 22,
 	}
 
-CMWeapons["weapon_cs_tmp"] =	{ -- T1 SMG
+CMWeapons["weapon_burger_cs_tmp"] =	{ -- T1 SMG
 	Weight = 4,
 	Slot = 3,
 	Rank = 0,
 	}
 	
-CMWeapons["weapon_cs_ump"] =	{ -- T3 SMG
+CMWeapons["weapon_burger_cs_ump"] =	{ -- T3 SMG
 	Weight = 5,
 	Slot = 3,
 	Rank = 18,
 	}
 	
-CMWeapons["weapon_cs_usp"] =	{ -- T1 Pistol
+CMWeapons["weapon_burger_cs_usp"] =	{ -- T1 Pistol
 	Weight = 1,
 	Slot = 2,
 	Rank = 0,
 	}
 	
-CMWeapons["weapon_cs_xm1014"] = { -- T3 Shotgun
+CMWeapons["weapon_burger_cs_xm1014"] = { -- T3 Shotgun
 	Weight = 5,
 	Slot = 3,
 	Rank = 18,

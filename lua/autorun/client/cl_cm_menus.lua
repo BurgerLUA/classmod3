@@ -1,4 +1,4 @@
-local DefaultWeapons = "weapon_cs_m4 weapon_cs_usp weapon_cs_knife weapon_cs_he"
+local DefaultWeapons = "weapon_burger_cs_m4 weapon_burger_cs_usp weapon_burger_cs_knife weapon_burger_cs_he"
 
 CreateClientConVar("cm_editor_weapons",DefaultWeapons,true,true)
 
@@ -361,8 +361,8 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 		if SWEP then
 			GetModel = SWEP.WorldModel
 			
-			if SWEP.UseThisWorldModel then
-				GetModel = SWEP.UseThisWorldModel
+			if SWEP.DisplayModel then
+				GetModel = SWEP.DisplayModel
 			end
 			
 			

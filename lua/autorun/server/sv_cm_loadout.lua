@@ -65,12 +65,12 @@ hook.Add("ShowSpare2","CM: ShowSpare2 Override",CM_ShowSpare2)
 
 --[[
 local ForbiddenWeapons = {
-	"weapon_cs_he",
-	"weapon_cs_flash",
-	"weapon_cs_smoke",
-	"weapon_cs_rpg",
+	"weapon_burger_cs_he",
+	"weapon_burger_cs_flash",
+	"weapon_burger_cs_smoke",
+	"weapon_burger_cs_rpg",
 	"weapon_smod_drank",
-	"weapon_cs_c4",
+	"weapon_burger_cs_c4",
 	"weapon_ex_gas",
 	"weapon_smod_katana",
 	"weapon_smod_tripmine",
@@ -86,7 +86,7 @@ function CM_PreventWeaponExploits(ply,weapon,swep)
 	end
 	--]]
 
-	return false
+	return true
 
 end
 
