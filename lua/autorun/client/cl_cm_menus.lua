@@ -267,10 +267,12 @@ function CM_ShowClassMenu()
 					CurrentLoadout = {"none"}
 					
 					for k,v in pairs(AllowedListItem) do
+						print("OKAY WHAT:",v)
 						v.IsCurrentlySelected = false
 					end
 					
 					for k,v in pairs(ForbiddenListItem) do
+						print(v)
 						v.IsCurrentlySelected = false
 					end
 					
@@ -479,4 +481,20 @@ function CM_RedrawWeight(WeightValue)
 	WeightValue:Center()
 	
 end
+
+function CM_OnSpawnMenuOpen()
+
+	if engine.ActiveGamemode() == "sandbox" then
+		net.Start("CM_PlaceSpawn")	
+			net.WriteBool(true)
+		net.SendToServer()
+	end
+
+end
+
+hook.Add("OnSpawnMenuOpen","CM_OnSpawnMenuOpen",CM_OnSpawnMenuOpen)
+
+
+
+
 
