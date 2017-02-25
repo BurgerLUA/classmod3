@@ -267,13 +267,15 @@ function CM_ShowClassMenu()
 					CurrentLoadout = {"none"}
 					
 					for k,v in pairs(AllowedListItem) do
-						print("OKAY WHAT:",v)
-						v.IsCurrentlySelected = false
+						if v:IsValid() then
+							v.IsCurrentlySelected = false
+						end
 					end
 					
 					for k,v in pairs(ForbiddenListItem) do
-						print(v)
-						v.IsCurrentlySelected = false
+						if v:IsValid() then
+							v.IsCurrentlySelected = false
+						end
 					end
 					
 					timer.Simple(0, function()
@@ -484,11 +486,13 @@ end
 
 function CM_OnSpawnMenuOpen()
 
+	--[[
 	if engine.ActiveGamemode() == "sandbox" then
 		net.Start("CM_PlaceSpawn")	
 			net.WriteBool(true)
 		net.SendToServer()
 	end
+	--]]
 
 end
 
