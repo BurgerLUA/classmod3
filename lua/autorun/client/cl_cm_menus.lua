@@ -292,6 +292,7 @@ end
 concommand.Add( "cm_menu", CM_ShowClassMenu)
 
 local LastRank = 0
+local LastSlot = 0
 
 function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightValue,IsForbidden)
 
@@ -322,6 +323,32 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 				LastRank = v.Rank
 				
 			end
+		end
+	else
+		if LastSlot ~= v.Slot then
+			local Blocker =  List:Add("DPanel")
+			Blocker:SetSize(LW - SpaceOffset,LargeTitleFontSize + SpaceOffset)
+			Blocker.Paint = function(self,w,h)
+				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+			end
+			
+			local TextTable = {}
+			
+			TextTable[1] = "Melee"
+			TextTable[2] = "Sidearm"
+			TextTable[3] = "Secondary"
+			TextTable[4] = "Primary"
+			TextTable[5] = "Equipment"
+			
+			
+			local BlockerText = vgui.Create("DLabel",Blocker)
+			BlockerText:SetText(string.upper(TextTable[v.Slot]))
+			BlockerText:SetFont("ClassmodLarge")
+			BlockerText:SetTextColor(TextColorBlack)
+			BlockerText:SizeToContents()
+			BlockerText:Center()
+
+			LastSlot = v.Slot
 		end
 	end
 	
