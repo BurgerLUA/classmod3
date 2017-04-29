@@ -1,18 +1,13 @@
-function CM_PlayerSpawn(ply)
-
-	
-	
-
+function CM_TakeMoney(ply,money)
+	MONEYMOD_AddMoney(ply,-money)
 end
-
-hook.Add("PlayerSpawn","CM: PlayerSpawn",CM_PlayerSpawn)
 
 
 function CM_Loadout( ply )
 
 	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
 	local TotalWeight = 0
-	local LoadoutTable = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_weapons")))
+	local LoadoutTable = CM_GetPlayerWeapons(ply)
 
 	if not ply:IsBot() then
 	
@@ -21,28 +16,52 @@ function CM_Loadout( ply )
 		--ply:Give("weapon_physgun")
 		--ply:Give("gmod_tool")
 	
+		local WeaponsToSpawnWith = {}
+		
+		
+		local HighestSlot = 0
+	
 		for k,v in pairs(LoadoutTable) do
+		
+			print("BEFORE",v)
 		
 			local SWEP = CMWeapons[v]
 
 			if SWEP then
-				if CM_CanSpawnWith(ply,v,true) then
-					ply:Give(v)
-				else
-					table.remove(LoadoutTable,k)
-				end
+				if CM_CanSpawnWith(ply,v,true,WeaponsToSpawnWith) then
+
+					table.Add(WeaponsToSpawnWith,{v})
+					
+					if SWEP.Cost then
+						CM_TakeMoney(ply,SWEP.Cost)
+					end
+					
+					
+					local Slot = SWEP.Slot
+					
+					if HighestSlot < Slot and Slot ~= 5 and Slot ~= 1 then
+						HighestSlot = Slot
+					end
+				end			
 			elseif v ~= "none" then
 				ply:ChatPrint("ERROR: Unknown weapon " .. v )
-				table.remove(LoadoutTable,k)
 			end
 			
 		end
 
-		if #LoadoutTable > 0 then
-			if #LoadoutTable >= 2 then
-				table.RemoveByValue(LoadoutTable,"none")
+		for l,b in pairs(WeaponsToSpawnWith) do
+			print("AFTER",b)
+			ply:Give(b)
+			if CMWeapons[b].Slot == HighestSlot then
+				ply:SelectWeapon(b)		
 			end
-			ply:ConCommand("cm_editor_weapons " .. string.Implode(" ",LoadoutTable))
+		end
+
+		if #WeaponsToSpawnWith > 0 then
+			if #WeaponsToSpawnWith > 1 then
+				table.RemoveByValue(WeaponsToSpawnWith,"none")
+			end
+			ply:ConCommand("cm_editor_weapons " .. string.Implode(" ",WeaponsToSpawnWith))
 		else
 			ply:ConCommand("cm_editor_weapons none")
 		end
@@ -91,3 +110,42 @@ function CM_PreventWeaponExploits(ply,weapon,swep)
 end
 
 hook.Add("PlayerGiveSWEP","CM_PreventWeaponExploits",CM_PreventWeaponExploits)
+
+
+util.AddNetworkString("CM_PlaceSpawn")
+
+
+
+net.Receive("CM_PlaceSpawn", function(len,ply)
+
+	--[[
+	if ply:Alive() then
+		local SpawnPoints = ents.FindByClass("ent_bur_spawnpoint")
+		
+		local ShouldSpawn = true
+		local OldSpawnpoint = nil
+		
+		for k,v in pairs(SpawnPoints) do
+			if v.Owner == ply then
+				ShouldSpawn = false
+				OldSpawnpoint = v
+			end
+		end
+		
+		if ShouldSpawn then
+			local Ent = ents.Create("ent_bur_spawnpoint")
+			Ent:SetPos(ply:GetPos())
+			Ent:SetAngles(ply:GetAngles())
+			Ent:Spawn()
+			Ent:Activate()
+			Ent:SetOwner(ply)
+		else
+			ply:ChatPrint("You already have a spawnpoint! Deleting old one in 3 seconds...")
+			SafeRemoveEntityDelayed(OldSpawnpoint,3)
+		end
+	else
+		ply:ChatPrint("But you're dead tho")
+	end
+	--]]
+
+end)

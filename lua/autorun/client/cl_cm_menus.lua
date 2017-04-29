@@ -2,7 +2,7 @@ local DefaultWeapons = "weapon_burger_cs_m4 weapon_burger_cs_usp weapon_burger_c
 
 CreateClientConVar("cm_editor_weapons",DefaultWeapons,true,true)
 
-local CurrentLoadout = string.Explode(" ", string.Trim(GetConVar("cm_editor_weapons"):GetString()))
+local CurrentLoadout = CM_GetPlayerWeapons(LocalPlayer())
 
 local TotalWeight = 0
 
@@ -39,6 +39,23 @@ local TextColorBlack = Color(0,0,0,255)
 -- 62, T5 Rifles
 -- 63, T5 Snipers
 -- 64, T5 Nades, T5 Misc
+
+surface.CreateFont( "ClassmodTiny", {
+	font = "Roboto-Medium",
+	size = 12,
+	weight = 500,
+	blursize = 0,
+	scanlines = 0,
+	antialias = true,
+	underline = false,
+	italic = false,
+	strikeout = false,
+	symbol = false,
+	rotary = false,
+	shadow = false,
+	additive = false,
+	outline = false,
+} )
 
 
 surface.CreateFont( "ClassmodSmall", {
@@ -86,9 +103,10 @@ function CM_ShowClassMenu()
 	local ply = LocalPlayer()
 	
 	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
+	CurrentLoadout = CM_GetPlayerWeapons(LocalPlayer())
 	
-	local x = ScrW()*0.9
-	local y = ScrH()*0.9
+	local x = ScrW() - 100
+	local y = ScrH() - 100
 
 	local BaseFrame = vgui.Create("DFrame")
 	BaseFrame:SetSize(x,y)
@@ -102,6 +120,7 @@ function CM_ShowClassMenu()
 	BaseFrame.Paint = function(self,w,h)
 		draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 	end
+	BaseFrame:SetMouseInputEnabled( true )
 	
 	local AllowedListItem = {}
 	local ForbiddenListItem = {}
@@ -262,6 +281,9 @@ function CM_ShowClassMenu()
 				ButtonFrame:SetSize(LW - SpaceOffset*2,LH*0.05)
 				ButtonFrame.Paint = function(self,w,h)
 					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+					if self:IsHovered() then
+						draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+					end
 				end
 				ButtonFrame.DoClick = function()
 					CurrentLoadout = {"none"}
@@ -419,7 +441,7 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 			draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 		end
 		
-		if CM_IsRankEnabled() then
+		--if CM_IsRankEnabled() then
 		
 			local DetailsFrame = vgui.Create("DPanel",ListItem[i])
 			DetailsFrame:SetPos(PanelHeight,SpaceOffset*3 + LargeTitleFontSize)
@@ -430,13 +452,24 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 			end
 			
 			local DetailsText = vgui.Create("DLabel",DetailsFrame)
-			DetailsText:SetText("Requires " .. SimpleXPCheckRank(v.Rank))
+			
+			local ActualText = ""
+			
+			if CM_IsRankEnabled() and CM_IsCostEnabled() and v.Cost then
+				ActualText = SimpleXPCheckRank(v.Rank) .. ", $" .. v.Cost
+			elseif CM_IsRankEnabled() then
+				ActualText = SimpleXPCheckRank(v.Rank)
+			elseif CM_IsCostEnabled() and v.Cost then
+				ActualText = "$" .. v.Cost
+			end
+			
+			DetailsText:SetText(ActualText)
 			DetailsText:SetFont("ClassmodSmall")
 			DetailsText:SetTextColor(TextColorBlack)
 			DetailsText:SizeToContents()
 			DetailsText:Center()
 			
-		end
+		--end
 		
 		
 		local PrintName = "Physgun"
@@ -480,7 +513,12 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 		
 		end
 		ButtonPanel.Paint = function(self,w,h)
-			--draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+			if self:IsHovered() then
+				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+			end
+		end
+		if SWEP.Description then
+			ButtonPanel:SetTooltip(SWEP.Description)
 		end
 		
 	else
@@ -488,7 +526,6 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 	end
 
 end
-
 
 function CM_RedrawWeight(WeightValue)
 

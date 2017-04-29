@@ -49,7 +49,11 @@ function CM_GetPlayerNadeCount(ply)
 
 end
 
-function CM_CanSpawnWith(ply,weapon,givereason)
+function CM_CanSpawnWith(ply,weapon,givereason,tableoverride)
+
+	if not tableoverride then
+		tableoverride = CM_GetPlayerWeapons(ply)
+	end
 
 	local Weapon01 = CMWeapons[weapon]
 
@@ -62,11 +66,21 @@ function CM_CanSpawnWith(ply,weapon,givereason)
 		end
 	end
 	
-	local Weapons = CM_GetPlayerWeapons(ply)
+	if CM_IsCostEnabled() then
+		if Weapon01.Cost > MONEYMOD_GetMoney(ply) then
+			if givereason then
+				print("NOT ENOUGH MONEY")
+			end
+			return false
+		end
+	end
+	
+	local Weapons = tableoverride
 	
 	if table.Count(Weapons) > 0 then
 	
 		local TotalWeight = Weapon01.Weight
+		local TotalCost = Weapon01.Cost
 		local GrenadeCount = 0
 		
 		if Weapon01.Slot == 5 then
@@ -96,6 +110,17 @@ function CM_CanSpawnWith(ply,weapon,givereason)
 						end
 						return false
 					end
+					
+					TotalCost = TotalCost + Weapon02.Cost
+					
+					if CM_IsCostEnabled() then
+						if TotalCost > MONEYMOD_GetMoney(ply) then
+							if givereason then
+								print("NOT ENOUGH MONEY")
+							end
+							return false
+						end
+					end
 
 					TotalWeight = TotalWeight + Weapon02.Weight
 					
@@ -118,7 +143,7 @@ end
 
 function CM_SharesSameSlot(Weapon01,Weapon02)
 
-	if Weapon01.Slot <= 0 or Weapon01.Slot == 5 then
+	if Weapon01.Slot <= 1 or Weapon01.Slot == 5 then
 		return false
 	end
 	
@@ -126,6 +151,9 @@ function CM_SharesSameSlot(Weapon01,Weapon02)
 	
 end
 
+function CM_IsCostEnabled()
+	return true
+end
 
 function CM_RemoveWeapon(weapon,CurrentLoadout)
 
