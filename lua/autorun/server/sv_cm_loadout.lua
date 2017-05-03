@@ -23,7 +23,7 @@ function CM_Loadout( ply )
 	
 		for k,v in pairs(LoadoutTable) do
 		
-			print("BEFORE",v)
+			--print("BEFORE",v)
 		
 			local SWEP = CMWeapons[v]
 
@@ -50,7 +50,7 @@ function CM_Loadout( ply )
 		end
 
 		for l,b in pairs(WeaponsToSpawnWith) do
-			print("AFTER",b)
+			--print("AFTER",b)
 			ply:Give(b)
 			if CMWeapons[b].Slot == HighestSlot then
 				ply:SelectWeapon(b)		

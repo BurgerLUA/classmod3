@@ -80,7 +80,7 @@ function CM_CanSpawnWith(ply,weapon,givereason,tableoverride)
 	if table.Count(Weapons) > 0 then
 	
 		local TotalWeight = Weapon01.Weight
-		local TotalCost = Weapon01.Cost
+		local TotalCost = Weapon01.Cost or 0
 		local GrenadeCount = 0
 		
 		if Weapon01.Slot == 5 then
@@ -111,9 +111,10 @@ function CM_CanSpawnWith(ply,weapon,givereason,tableoverride)
 						return false
 					end
 					
-					TotalCost = TotalCost + Weapon02.Cost
-					
 					if CM_IsCostEnabled() then
+					
+						TotalCost = TotalCost + (Weapon02.Cost or 0)
+					
 						if TotalCost > MONEYMOD_GetMoney(ply) then
 							if givereason then
 								print("NOT ENOUGH MONEY")
@@ -152,7 +153,7 @@ function CM_SharesSameSlot(Weapon01,Weapon02)
 end
 
 function CM_IsCostEnabled()
-	return true
+	return false
 end
 
 function CM_RemoveWeapon(weapon,CurrentLoadout)
