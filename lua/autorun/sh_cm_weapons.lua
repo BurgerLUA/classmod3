@@ -4,19 +4,29 @@ CreateConVar( "sv_class_rankings", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY + FCVAR_REP
 -- Class Mod Weapon Data
 
 function CM_GetPlayerWeapons(ply)
+	local Weapons
 	if CLIENT then
 		Weapons = string.Explode(" ",string.Trim(GetConVar("cm_editor_weapons"):GetString()))
 	else
 		Weapons = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_weapons")))
 	end
-	
 	return Weapons
-	
 end
+--[[
+function CM_GetPlayerEquipment(ply)
+	local Equipment
+	if CLIENT then
+		Equipment = string.Explode(" ",string.Trim(GetConVar("cm_editor_equipment"):GetString()))
+	else
+		Equipment = string.Explode(" ",string.Trim(ply:GetInfo("cm_editor_equipment")))
+	end
+	return Weapons	
+end
+--]]
 
 function CM_GetPlayerWeight(ply)
 
-	local Weapons = CM_GetPlayerWeapons(ply)
+	local Weapons = CM_GetPlayerWeapons(ply) --+ CM_GetPlayerEquipment(ply)
 	local WeightCount = 0
 
 	for k,v in pairs(Weapons) do
@@ -29,6 +39,63 @@ function CM_GetPlayerWeight(ply)
 	return WeightCount
 
 end
+
+function CM_GetPlayerWeightCurrent(ply)
+
+	local Weapons = ply:GetWeapons()
+	local WeightCount = (ply:Armor()/2)
+
+	for k,v in pairs(Weapons) do
+		local Weapon = CMWeapons[v:GetClass()]
+		if Weapon then
+			WeightCount = WeightCount + Weapon.Weight
+		end
+	end
+	
+	return WeightCount
+
+end
+
+
+
+
+function CM_UpdateWeight(ply)
+	ply.CM_Weight = CM_GetPlayerWeightCurrent(ply)
+end
+
+local NextUpdate = 0
+
+function CM_Think()
+	if NextUpdate <= CurTime() then
+		if SERVER then
+			for k,v in pairs(player.GetHumans()) do
+				CM_UpdateWeight(v)
+			end
+		end
+		if CLIENT then
+			CM_UpdateWeight(LocalPlayer())
+		
+		end
+		NextUpdate = NextUpdate + 0.25
+	end
+end
+
+hook.Add("Think","CM_Think",CM_Think)
+
+function CM_GetMoveMul(weight)
+	if not weight then weight = 0 end
+	return math.Round( math.Clamp(0.6 + (1 - (weight / 40))*0.5,0.25,1),2 )
+end
+
+function CM_Move(ply,mv)
+	if not ply:IsBot() then
+		local SpeedMul = CM_GetMoveMul(ply.CM_Weight)
+		mv:SetMaxClientSpeed(mv:GetMaxSpeed() * SpeedMul)
+		mv:SetMaxSpeed(mv:GetMaxSpeed() * SpeedMul)
+	end
+end
+
+hook.Add("Move","CM_Move",CM_Move)
 
 function CM_GetPlayerNadeCount(ply)
 
@@ -56,7 +123,7 @@ function CM_CanSpawnWith(ply,weapon,givereason,tableoverride)
 	end
 
 	local Weapon01 = CMWeapons[weapon]
-
+	
 	if CM_IsRankEnabled() then
 		if Weapon01.Rank > SimpleXPGetLevel(ply) then
 			if givereason then
@@ -79,7 +146,8 @@ function CM_CanSpawnWith(ply,weapon,givereason,tableoverride)
 	
 	if table.Count(Weapons) > 0 then
 	
-		local TotalWeight = Weapon01.Weight
+	
+		local TotalWeight = Weapon01.Weight or 0
 		local TotalCost = Weapon01.Cost or 0
 		local GrenadeCount = 0
 		

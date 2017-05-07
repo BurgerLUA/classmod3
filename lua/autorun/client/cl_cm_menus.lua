@@ -1,8 +1,11 @@
 local DefaultWeapons = "weapon_burger_cs_m4 weapon_burger_cs_usp weapon_burger_cs_knife weapon_burger_cs_he"
+--local DefaultEquipment = "none"
 
 CreateClientConVar("cm_editor_weapons",DefaultWeapons,true,true)
+--CreateClientConVar("cm_editor_equipment",DefaultEquipment,true,true)
 
 local CurrentLoadout = CM_GetPlayerWeapons(LocalPlayer())
+--local CurrentEquipment = CM_GetPlayerEquipment(LocalPlayer())
 
 local TotalWeight = 0
 
@@ -104,6 +107,7 @@ function CM_ShowClassMenu()
 	
 	local WeightLimit = GetConVar("sv_class_weightlimit"):GetFloat()
 	CurrentLoadout = CM_GetPlayerWeapons(LocalPlayer())
+	--CurrentEquipment = CM_GetPlayerEquipment(LocalPlayer())
 	
 	local x = ScrW() - 100
 	local y = ScrH() - 100
@@ -149,6 +153,7 @@ function CM_ShowClassMenu()
 			WeightFrame.Paint = function(self,w,h)
 				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 			end
+	
 	
 			local LW, LH = WeightFrame:GetSize()
 	
@@ -199,13 +204,12 @@ function CM_ShowClassMenu()
 				List:SetSpaceY(SpaceOffset)
 
 				local LW, LH = List:GetSize()
-				
 				local AllowedWeapons = table.Copy(CMWeapons)
-				local ForbiddenWeapons = {}
+				local ForbiddenWeapons = {}		
 
 				if CM_IsRankEnabled() then
 					for k,v in pairs(AllowedWeapons) do
-						if v.Rank > SimpleXPGetLevel(ply) then
+						if v.Rank and v.Rank > SimpleXPGetLevel(ply) then
 							ForbiddenWeapons[k] = v
 							AllowedWeapons[k] = nil
 						end
@@ -216,6 +220,7 @@ function CM_ShowClassMenu()
 				local ForbiddenKeys = table.GetKeys( ForbiddenWeapons )
 				
 				table.sort( ForbiddenKeys, function( a, b )
+				
 					local WeaponA = ForbiddenWeapons[a]
 					local WeaponB = ForbiddenWeapons[b]
 					local ply = LocalPlayer()
@@ -287,6 +292,7 @@ function CM_ShowClassMenu()
 				end
 				ButtonFrame.DoClick = function()
 					CurrentLoadout = {"none"}
+					--CurrentEquipment = {"none"}
 					
 					for k,v in pairs(AllowedListItem) do
 						if v:IsValid() then
@@ -305,6 +311,7 @@ function CM_ShowClassMenu()
 					end)
 					
 					RunConsoleCommand("cm_editor_weapons", string.Trim(string.Implode(" ",CurrentLoadout)))
+					--RunConsoleCommand("cm_editor_equipment", string.Trim(string.Implode(" ",CurrentEquipment)))
 				end
 
 	CM_RedrawWeight(WeightValue)
@@ -362,13 +369,14 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 			TextTable[4] = "Primary"
 			TextTable[5] = "Equipment"
 			
-			
-			local BlockerText = vgui.Create("DLabel",Blocker)
-			BlockerText:SetText(string.upper(TextTable[v.Slot]))
-			BlockerText:SetFont("ClassmodLarge")
-			BlockerText:SetTextColor(TextColorBlack)
-			BlockerText:SizeToContents()
-			BlockerText:Center()
+			if TextTable[v.Slot] then
+				local BlockerText = vgui.Create("DLabel",Blocker)
+				BlockerText:SetText(string.upper(TextTable[v.Slot]))
+				BlockerText:SetFont("ClassmodLarge")
+				BlockerText:SetTextColor(TextColorBlack)
+				BlockerText:SizeToContents()
+				BlockerText:Center()
+			end
 
 			LastSlot = v.Slot
 		end
@@ -407,18 +415,18 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 	
 	local SWEP = weapons.GetStored(k)
 	
-	if SWEP or k == "weapon_physgun" then
+	if SWEP or v.Equipment then
 	
-		local GetModel = ""
+		local GetModel = "models/props_c17/lampShade001a.mdl"
 		
-		if SWEP then
+		if v.IconModel then
+			GetModel = v.IconModel
+		elseif SWEP then
 			GetModel = SWEP.WorldModel
 			
 			if SWEP.DisplayModel then
 				GetModel = SWEP.DisplayModel
-			end
-			
-			
+			end	
 		end
 		
 		if GetModel and GetModel ~= "" then
@@ -472,12 +480,13 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 		--end
 		
 		
-		local PrintName = "Physgun"
+		local PrintName = "No Name"
 		
-		if SWEP then
+		if v.Name then
+			PrintName = v.Name
+		elseif SWEP then
 			PrintName = SWEP.PrintName
-		end
-		
+		end	
 		
 		local WeaponNameText = vgui.Create("DLabel",WeaponNameFrame)
 		WeaponNameText:SetText(PrintName .. " [" .. v.Weight .. "KG]")
@@ -517,9 +526,19 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
 			end
 		end
-		if SWEP.Description then
-			ButtonPanel:SetTooltip(SWEP.Description)
+		
+		local Description = ""
+		
+		if v.Description then
+			Description = v.Description
+		elseif SWEP and SWEP.Description then
+			Description = v.Description
+		end	
+		
+		if Description ~= "" then
+			ButtonPanel:SetTooltip(Description)
 		end
+		
 		
 	else
 		ListItem[i]:Remove()
@@ -541,10 +560,13 @@ function CM_RedrawWeight(WeightValue)
 			TotalWeight = TotalWeight + CMWeapons[v].Weight
 		end
 	end
+	
+	local MovePercent = CM_GetMoveMul(TotalWeight) * 100
 
-	WeightValue:SetText(TotalWeight .. "/" .. WeightLimit)
+	WeightValue:SetText(TotalWeight .. "/" .. WeightLimit .. " (Mobility: " .. MovePercent .. "%)" )
 	WeightValue:SizeToContents()
 	WeightValue:Center()
+
 	
 end
 

@@ -19,6 +19,7 @@ function CM_Loadout( ply )
 		local WeaponsToSpawnWith = {}
 		
 		
+		
 		local HighestSlot = 0
 	
 		for k,v in pairs(LoadoutTable) do
@@ -42,7 +43,7 @@ function CM_Loadout( ply )
 					if HighestSlot < Slot and Slot ~= 5 and Slot ~= 1 then
 						HighestSlot = Slot
 					end
-				end			
+				end
 			elseif v ~= "none" then
 				ply:ChatPrint("ERROR: Unknown weapon " .. v )
 			end
@@ -51,10 +52,21 @@ function CM_Loadout( ply )
 
 		for l,b in pairs(WeaponsToSpawnWith) do
 			--print("AFTER",b)
-			ply:Give(b)
-			if CMWeapons[b].Slot == HighestSlot then
-				ply:SelectWeapon(b)		
+			
+			if CMWeapons[b].Equipment then
+				
+			else			
+				ply:Give(b)
+				
+				if CMWeapons[b].Slot == HighestSlot then
+					ply:SelectWeapon(b)		
+				end
 			end
+			
+			if CMWeapons[b].func then
+				CMWeapons[b].func(ply)	
+			end
+			
 		end
 
 		if #WeaponsToSpawnWith > 0 then

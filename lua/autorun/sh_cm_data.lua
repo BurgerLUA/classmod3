@@ -1,4 +1,5 @@
 CMWeapons = {}
+CMEquipment = {}
 
 -- CS:S MELEE
 
@@ -585,13 +586,13 @@ CMWeapons["weapon_smod_maggrenade"] = { -- T3 Equipment
 
 --]]
 
---[[
+
 CMWeapons["weapon_smod_beangun"] = { -- T3 Misc
-	Weight = 5,
-	Slot = 3,
+	Weight = 11,
+	Slot = 4,
 	Rank = 55,
 }
---]]
+
 
 
 
@@ -606,6 +607,13 @@ CMWeapons["weapon_smod_soybeans"] = { -- T3 Equipment
 --]]
 
 
+-- Wheat
+
+CMWeapons["parkourmod"] = { -- T3 Equipment
+	Weight = 5,
+	Slot = 0,
+	Rank = 55,
+}
 
 -- Halo
 
@@ -770,3 +778,36 @@ CMWeapons["weapon_burfof_walker"] = { -- T2 Equipment
 }
 --]]
 
+
+CMWeapons["armor10"] = {
+	Name = "10 Armor",
+	Equipment = true,
+	Weight = 5,
+	Slot = 100,
+	Rank = 0,
+	func = function(ply) 
+		ply:SetArmor(ply:Armor() + 10)
+	end,
+}
+
+CMWeapons["armor25"] = {
+	Name = "25 Armor",
+	Equipment = true,
+	Weight = 12.5,
+	Slot = 100,
+	Rank = 0,
+	func = function(ply) 
+		ply:SetArmor(ply:Armor() + 25)
+	end,
+}
+
+CMWeapons["armor50"] = {
+	Name = "50 Armor",
+	Equipment = true,
+	Weight = 25,
+	Slot = 100,
+	Rank = 0,
+	func = function(ply) 
+		ply:SetArmor(ply:Armor() + 50)
+	end,
+}
