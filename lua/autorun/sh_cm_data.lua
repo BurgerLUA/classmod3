@@ -635,6 +635,12 @@ CMWeapons["weapon_halo_magnum"] = { -- T2 Equipment
 
 
 CMWeapons["weapon_halo_plasmarifle"] = { -- T2 Equipment
+	Weight = 5,
+	Slot = 3,
+	Rank = 0,
+}
+
+CMWeapons["weapon_halo_plasmarifle_red"] = { -- T2 Equipment
 	Weight = 6,
 	Slot = 3,
 	Rank = 0,
@@ -674,6 +680,18 @@ CMWeapons["weapon_halo_sword"] = { -- T2 Equipment
 CMWeapons["weapon_halo_battlerifle"] = { -- T2 Equipment
 	Weight = 7,
 	Slot = 4,
+	Rank = 0,
+}
+
+CMWeapons["weapon_halo_new"] = { -- T2 Equipment
+	Weight = 9,
+	Slot = 4,
+	Rank = 0,
+}
+
+CMWeapons["weapon_halo_plasmapistol"] = { -- T2 Equipment
+	Weight = 3,
+	Slot = 1,
 	Rank = 0,
 }
 
