@@ -43,7 +43,7 @@ end
 function CM_GetPlayerWeightCurrent(ply)
 
 	local Weapons = ply:GetWeapons()
-	local WeightCount = (ply:Armor()/2)
+	local WeightCount = (ply:Armor()/4)
 
 	for k,v in pairs(Weapons) do
 		local Weapon = CMWeapons[v:GetClass()]
@@ -124,12 +124,18 @@ function CM_CanSpawnWith(ply,weapon,givereason,tableoverride)
 
 	local Weapon01 = CMWeapons[weapon]
 	
+	if not Weapon01 then return false end
+	
 	if CM_IsRankEnabled() then
-		if Weapon01.Rank > SimpleXPGetLevel(ply) then
-			if givereason then
-				print("NOT UNLOCKED")
+		if Weapon01.Rank then
+			if Weapon01.Rank > SimpleXPGetLevel(ply) then
+				if givereason then
+					print("NOT UNLOCKED")
+				end
+				return false
 			end
-			return false
+		else
+			print(Weapon01.Name," has no rank!")
 		end
 	end
 	

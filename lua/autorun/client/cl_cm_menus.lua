@@ -78,6 +78,23 @@ surface.CreateFont( "ClassmodSmall", {
 	outline = false,
 } )
 
+surface.CreateFont( "ClassmodTiny", {
+	font = "Roboto-Medium",
+	size = 14,
+	weight = 500,
+	blursize = 0,
+	scanlines = 0,
+	antialias = true,
+	underline = false,
+	italic = false,
+	strikeout = false,
+	symbol = false,
+	rotary = false,
+	shadow = false,
+	additive = false,
+	outline = false,
+} )
+
 surface.CreateFont( "ClassmodLarge", {
 	font = "Roboto-Medium",
 	size = 36,
@@ -368,6 +385,7 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 			TextTable[3] = "Secondary"
 			TextTable[4] = "Primary"
 			TextTable[5] = "Equipment"
+			TextTable[100] = "Special"
 			
 			if TextTable[v.Slot] then
 				local BlockerText = vgui.Create("DLabel",Blocker)
@@ -521,9 +539,71 @@ function CM_DrawThing(LW,LH,SpaceOffset,i,Keys,List,ListItem,CMWeapons,WeightVal
 			end)
 		
 		end
+		
+		if SWEP then
+			ButtonPanel.WeaponStats = BURGERBASE_CalculateWeaponStats(LocalPlayer(),SWEP,true)
+		end
+		
+		
 		ButtonPanel.Paint = function(self,w,h)
 			if self:IsHovered() then
-				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 150 ), true,true,true,true )
+			
+				if self.WeaponStats then
+			
+					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 255 ), true,true,true,true )
+				
+				
+					local Offset = 5
+					local MaxWidth = w - Offset*2
+					
+					local TotalSpace = -5
+					
+					local DamageMod = math.Clamp(self.WeaponStats.damage/100,0,1)
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth, SpaceOffset, Color( 255, 0, 0, 150 ), true,true,true,true )
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth*DamageMod, SpaceOffset, Color( 255, 255, 0, 150 ), true,true,true,true )
+					draw.DrawText( "Damage","ClassmodTiny",Offset*2,Offset*1.5 + TotalSpace,Color( 0, 0, 0, 255 ), TEXT_ALIGN_LEFT )
+					TotalSpace = TotalSpace + Offset*3
+					
+					local AccuracyMod = math.Clamp(self.WeaponStats.accuracy,0,1)
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth, SpaceOffset, Color( 255, 0, 0, 150 ), true,true,true,true )
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth*AccuracyMod, SpaceOffset, Color( 255, 255, 0, 150 ), true,true,true,true )
+					draw.DrawText( "Accuracy","ClassmodTiny",Offset*2,Offset*1.5 + TotalSpace,Color( 0, 0, 0, 255 ), TEXT_ALIGN_LEFT )
+					TotalSpace = TotalSpace + Offset*3
+					
+					local FireRateMod = math.Clamp(self.WeaponStats.rpm/800,0,1)
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth, SpaceOffset, Color( 255, 0, 0, 150 ), true,true,true,true )
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth*FireRateMod, SpaceOffset, Color( 255, 255, 0, 150 ), true,true,true,true )
+					draw.DrawText( "Firerate","ClassmodTiny",Offset*2,Offset*1.5 + TotalSpace,Color( 0, 0, 0, 255 ), TEXT_ALIGN_LEFT )
+					TotalSpace = TotalSpace + Offset*3
+					
+					local DPSMod = math.Clamp(self.WeaponStats.dps/600,0,1)
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth, SpaceOffset, Color( 255, 0, 0, 150 ), true,true,true,true )
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth*DPSMod, SpaceOffset, Color( 255, 255, 0, 150 ), true,true,true,true )
+					draw.DrawText( "DPS","ClassmodTiny",Offset*2,Offset*1.5 + TotalSpace,Color( 0, 0, 0, 255 ), TEXT_ALIGN_LEFT )
+					TotalSpace = TotalSpace + Offset*3
+					
+					local RangeMod = math.Clamp(self.WeaponStats.range/6000,0,1)
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth, SpaceOffset, Color( 255, 0, 0, 150 ), true,true,true,true )
+					draw.RoundedBoxEx( 2, Offset, Offset*2 + TotalSpace, MaxWidth*RangeMod, SpaceOffset, Color( 255, 255, 0, 150 ), true,true,true,true )
+					draw.DrawText( "Range","ClassmodTiny",Offset*2,Offset*1.5 + TotalSpace,Color( 0, 0, 0, 255 ), TEXT_ALIGN_LEFT )
+					TotalSpace = TotalSpace + Offset*3
+					
+					
+					
+					--[[
+					if SWEP.Description then
+						draw.DrawText( SWEP.Description,"ClassmodTiny",Offset*2,Offset*1.5 + TotalSpace,Color( 0, 0, 0, 255 ), TEXT_ALIGN_LEFT )
+					end
+					--]]
+				else
+					draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 255, 255, 255, 100 ), true,true,true,true )		
+				end
+				
+				
+				
+				
+				
+				
 			end
 		end
 		
